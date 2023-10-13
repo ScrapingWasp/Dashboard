@@ -120,7 +120,7 @@ const Landing = () => {
           style={{
             textAlign: "left",
             fontWeight: "bold",
-            fontSize: "1.3em",
+            fontSize: "1.4em",
             marginBottom: 25,
           }}>
           Get started with ScrapingWasp
