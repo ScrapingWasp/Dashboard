@@ -9,3 +9,4 @@ export const DARK_GREEN = "rgb(20, 68, 31)";
 export const LIGHT_GREEN = "rgb(108, 205, 124)";
 export const BASIC_RADIUS = 7;
 export const GREEN = "#34B37E";
+export const CORAL_RED = "#C1121F";
