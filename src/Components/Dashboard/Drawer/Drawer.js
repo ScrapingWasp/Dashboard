@@ -158,6 +158,8 @@ const Drawer = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        backgroundColor: "white",
+        position: "fixed",
       }}>
       {/* Part 1 */}
       <div>

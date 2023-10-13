@@ -1,4 +1,5 @@
 export const PRIMARY = "#00509D";
+export const PRIMARY_DILUTED = "#00509D";
 export const SECONDARY = "#FFD500";
 export const LIGHT_GRAY = "#fafafa";
 export const COOL_GRAY = "#F3F4F9";
