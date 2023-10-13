@@ -1,6 +1,8 @@
 export const PRIMARY = "#00509D";
 export const SECONDARY = "#FFD500";
 export const LIGHT_GRAY = "#fafafa";
+export const COOL_GRAY = "#F3F4F9";
+export const GENERIC_GRAY = "#D0D5E9";
 export const GRAY_1 = "#5c677d";
 export const GRAY_2 = "#33415c";
 export const DARK_GREEN = "rgb(20, 68, 31)";
