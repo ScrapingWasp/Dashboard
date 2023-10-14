@@ -50,9 +50,7 @@ const otherApis = [
   },
 ];
 
-const Drawer = ({ selectedChild, setSelectedChild }) => {
-  const [selectedChildRef, setSelectedChildRef] = useState("/docs/setup");
-
+const Drawer = ({ selectedChildRef, setSelectedChildRef }) => {
   const AddPreTitle = ({ title }) => {
     return (
       <div
@@ -67,24 +65,6 @@ const Drawer = ({ selectedChild, setSelectedChild }) => {
         {title}
       </div>
     );
-  };
-
-  const getSelectedChildComponent = (child) => {
-    if (child === "/docs/setup") {
-      return <div>setup</div>;
-    } else if (child === "/docs/apikeys") {
-      return <div>API keys</div>;
-    } else if (child === "/docs/helloworld") {
-      return <div>Make first request</div>;
-    } else if (child === "/docs/webscraping") {
-      return <div>General web scraping</div>;
-    } else if (child === "/docs/extraction") {
-      return <div>Data extraction</div>;
-    } else if (child === "/docs/screenshots") {
-      return <div>Screenshots</div>;
-    } else {
-      return <div>setup</div>;
-    }
   };
 
   const getSelectedOptionStyle = (childRef) => {
@@ -129,7 +109,6 @@ const Drawer = ({ selectedChild, setSelectedChild }) => {
               className={classes.optionChild}
               onClick={() => {
                 setSelectedChildRef(started.childRef);
-                setSelectedChild(getSelectedChildComponent(started.childRef));
               }}
               style={getSelectedOptionStyle(started.childRef)}>
               {started.title}
@@ -152,7 +131,6 @@ const Drawer = ({ selectedChild, setSelectedChild }) => {
               className={classes.optionChild}
               onClick={() => {
                 setSelectedChildRef(api.childRef);
-                setSelectedChild(getSelectedChildComponent(api.childRef));
               }}
               style={getSelectedOptionStyle(api.childRef)}>
               {api.title}

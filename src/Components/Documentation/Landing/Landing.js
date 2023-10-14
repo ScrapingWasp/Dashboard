@@ -3,9 +3,28 @@ import { FireFilled } from "@ant-design/icons";
 import Drawer from "../Drawer/Drawer";
 import classes from "./Landing.module.css";
 import { GENERIC_GRAY, SECONDARY } from "../../Utility/Colors";
+import ScriptureBuilder from "../../Utility/Documentation/ScriptureBuilder";
 
 const Landing = () => {
-  const [selectedChild, setSelectedChild] = useState(<div>setup</div>);
+  const [selectedChildRef, setSelectedChildRef] = useState("/docs/setup");
+
+  const getSelectedChildComponent = () => {
+    if (selectedChildRef === "/docs/setup") {
+      return <ScriptureBuilder />;
+    } else if (selectedChildRef === "/docs/apikeys") {
+      return <div>API keys</div>;
+    } else if (selectedChildRef === "/docs/helloworld") {
+      return <div>Make first request</div>;
+    } else if (selectedChildRef === "/docs/webscraping") {
+      return <div>General web scraping</div>;
+    } else if (selectedChildRef === "/docs/extraction") {
+      return <div>Data extraction</div>;
+    } else if (selectedChildRef === "/docs/screenshots") {
+      return <div>Screenshots</div>;
+    } else {
+      return <div>setup</div>;
+    }
+  };
 
   return (
     <div className={classes.mainDocParent}>
@@ -38,8 +57,8 @@ const Landing = () => {
       <div className={classes.mainNodeWithDrawer}>
         <div>
           <Drawer
-            selectedChild={selectedChild}
-            setSelectedChild={setSelectedChild}
+            selectedChildRef={selectedChildRef}
+            setSelectedChildRef={setSelectedChildRef}
           />
         </div>
         <div
@@ -48,7 +67,7 @@ const Landing = () => {
             height: "100%",
             overflowY: "auto",
           }}>
-          {selectedChild}
+          {getSelectedChildComponent(selectedChildRef)}
         </div>
       </div>
     </div>
