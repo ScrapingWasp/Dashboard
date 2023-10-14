@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { MdAccountCircle } from "react-icons/md";
 import {
   BASIC_RADIUS,
@@ -39,12 +40,12 @@ const getStarted = [
     href: "/getstarted/screenshots",
     beta: false,
   },
-  {
-    title: "Market analysis",
-    description: "Unlock intelligence from a website data over time.",
-    href: "/getstarted/analysis",
-    beta: true,
-  },
+  // {
+  //   title: "Market analysis",
+  //   description: "Unlock intelligence from a website data over time.",
+  //   href: "/getstarted/analysis",
+  //   beta: true,
+  // },
 ];
 
 const getAPIKeysCreds = () => {
@@ -61,6 +62,10 @@ const getAPIKeysCreds = () => {
 };
 
 const Landing = () => {
+  useEffect(() => {
+    document.title = "ScrapingWasp - Dashboard";
+  }, []);
+
   return (
     <div
       style={{

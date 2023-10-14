@@ -18,9 +18,9 @@ const HomeDashboard = () => {
           marginLeft: 250,
           paddingBottom: 100,
         }}>
-        {/* <Landing /> */}
+        <Landing />
         {/* <Keeper /> */}
-        <Billing />
+        {/* <Billing /> */}
       </div>
     </div>
   );

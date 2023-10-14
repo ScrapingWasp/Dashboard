@@ -1,9 +1,14 @@
+import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import DataExtraction from "../DataExtraction/DataExtraction";
 import Screenshots from "../Screenshots/Screenshots";
 import { GRAY_2 } from "../../Utility/Colors";
 
 const Keeper = () => {
+  useEffect(() => {
+    document.title = "ScrapingWasp - Keeper";
+  }, []);
+
   const getTabItems = () => {
     const items = [
       {

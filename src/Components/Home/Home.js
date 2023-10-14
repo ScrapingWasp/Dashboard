@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Button } from "antd";
 import Header from "../Header/Header";
 import { PRIMARY, SECONDARY } from "../Utility/Colors";
@@ -7,6 +8,10 @@ import { HighlightWord } from "../Utility/HighlightWord";
 import Pricing from "../Pricing/Pricing";
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "ScrapingWasp - Own the data";
+  }, []);
+
   return (
     <div style={{ margin: "auto", marginBottom: "10em" }}>
       <Header />

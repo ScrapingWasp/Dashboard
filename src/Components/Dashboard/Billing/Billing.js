@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Progress, Popover } from "antd";
 import {
   BASIC_RADIUS,
@@ -116,6 +116,10 @@ const features = [
 
 const Billing = () => {
   const [currentPlan, setCurrentPlan] = useState("freelance");
+
+  useEffect(() => {
+    document.title = "ScrapingWasp - Billing";
+  }, []);
 
   return (
     <div

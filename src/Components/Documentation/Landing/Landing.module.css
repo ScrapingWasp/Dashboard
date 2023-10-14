@@ -1,0 +1,15 @@
+.mainDocParent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.mainNodeWithDrawer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+  height: 100%;
+}
