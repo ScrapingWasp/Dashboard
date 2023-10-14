@@ -22,7 +22,81 @@ import JSONViewer from "../../Utility/JSONViewer/JSONViewer";
 
 const DADescription = () => {
   const [activeDataSwitch, setActiveDataSwitch] = useState("structured_data");
-
+  const debugJSONOld = {
+    person: {
+      name: "John Doe",
+      age: 40,
+      isStudent: false,
+      subjects: ["Mathematics", "Physics", "Chemistry"],
+      address: {
+        street: "123 Main St",
+        city: "Anytown",
+        state: "CA",
+        country: {
+          name: "United States",
+          code: "US",
+          regions: [
+            {
+              name: "Northeast",
+              states: ["New York", "Massachusetts", "Pennsylvania"],
+            },
+            {
+              name: "West",
+              states: ["California", "Nevada", "Hawaii"],
+            },
+          ],
+        },
+      },
+      contacts: [
+        {
+          type: "email",
+          value: "john.doe@example.com",
+        },
+        {
+          type: "phone",
+          value: "+1 (234) 567-8901",
+        },
+      ],
+      projects: [
+        {
+          name: "Project One",
+          status: "completed",
+          details: {
+            start_date: "2022-01-01",
+            end_date: "2022-06-01",
+            team_members: [
+              {
+                name: "Jessica",
+                role: "Developer",
+              },
+              {
+                name: "Bob",
+                role: "Tester",
+              },
+            ],
+          },
+        },
+        {
+          name: "Project Two",
+          status: "ongoing",
+          details: {
+            start_date: "2022-05-01",
+            expected_end_date: "2023-01-01",
+            team_members: [
+              {
+                name: "Charlie",
+                role: "Chef",
+              },
+              {
+                name: "Eve",
+                role: "Designer",
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
   const debugJSON = {
     person: {
       name: "John Doe",
