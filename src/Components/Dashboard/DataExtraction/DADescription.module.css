@@ -1,0 +1,32 @@
+.jobNameContainer {
+  cursor: pointer;
+}
+
+.jobNameContainer:hover {
+  color: #00509d;
+}
+
+.dataSwitch {
+  border-bottom: 1px solid #d0d5e9;
+  display: flex;
+  margin-top: 1.5em;
+  padding-bottom: 1em;
+}
+
+.dataSwitch > div {
+  border: 1px solid #fff;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding: 7px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.dataSwitch > div:hover {
+  border-color: #f3f4f9;
+  background-color: #f3f4f9;
+}

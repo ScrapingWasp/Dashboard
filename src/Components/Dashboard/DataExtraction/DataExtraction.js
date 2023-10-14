@@ -1,7 +1,11 @@
+import React, { useState } from "react";
 import { Table, Tag } from "antd";
 import { CORAL_RED, GRAY_2, GREEN, SECONDARY } from "../../Utility/Colors";
+import DADescription from "./DADescription";
 
 const DataExtraction = () => {
+  const [showDescription, setShowDescription] = useState(true);
+
   const getColumns = () => {
     const columns = [
       {
@@ -112,11 +116,15 @@ const DataExtraction = () => {
       style={{
         textAlign: "left",
       }}>
-      <Table
-        dataSource={getDataToShow()}
-        columns={getColumns()}
-        onRow={onRowClick}
-      />
+      {showDescription ? (
+        <DADescription />
+      ) : (
+        <Table
+          dataSource={getDataToShow()}
+          columns={getColumns()}
+          onRow={onRowClick}
+        />
+      )}
     </div>
   );
 };
