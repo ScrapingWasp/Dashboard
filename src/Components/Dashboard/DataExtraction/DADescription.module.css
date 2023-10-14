@@ -20,13 +20,15 @@
 
 .dataSwitch > div:nth-child(1) > div {
   border: 1px solid #fff;
-  width: 150px;
+  min-width: 90px;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 1.1em;
   font-weight: 500;
   padding: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
   border-radius: 100px;
   cursor: pointer;
 }
