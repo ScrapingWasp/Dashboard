@@ -7,6 +7,7 @@ import {
   PRIMARY,
   PRIMARY_DILUTED,
   SECONDARY,
+  SECONDARY_STRONG,
 } from "../../Utility/Colors";
 import ScriptureBuilder from "../../Utility/Documentation/ScriptureBuilder";
 import { Button } from "antd";
@@ -198,7 +199,9 @@ const Landing = () => {
               fontSize: "1.3em",
             }}>
             <FireFilled style={{ color: SECONDARY }} />{" "}
-            <span style={{ paddingLeft: 3 }}>ScrapingWasp</span>
+            <span style={{ paddingLeft: 3 }}>
+              ScrapingWasp <span style={{ color: SECONDARY_STRONG }}>DOCS</span>
+            </span>
           </div>
           <div
             style={{
