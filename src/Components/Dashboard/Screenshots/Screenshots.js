@@ -1,7 +1,11 @@
+import React, { useState } from "react";
 import { Table, Tag } from "antd";
 import { CORAL_RED, GRAY_2, GREEN, SECONDARY } from "../../Utility/Colors";
+import SCDescription from "./SCDescription";
 
 const Screenshots = () => {
+  const [showDescription, setShowDescription] = useState(false);
+
   const getColumns = () => {
     const columns = [
       {
@@ -115,6 +119,7 @@ const Screenshots = () => {
     return {
       onClick: (event) => {
         console.log("Row clicked:", record, rowIndex);
+        setShowDescription(true);
       },
       style: { cursor: "pointer" },
     };
@@ -125,11 +130,15 @@ const Screenshots = () => {
       style={{
         textAlign: "left",
       }}>
-      <Table
-        dataSource={getDataToShow()}
-        columns={getColumns()}
-        onRow={onRowClick}
-      />
+      {showDescription ? (
+        <SCDescription setShowDescription={setShowDescription} />
+      ) : (
+        <Table
+          dataSource={getDataToShow()}
+          columns={getColumns()}
+          onRow={onRowClick}
+        />
+      )}
     </div>
   );
 };
