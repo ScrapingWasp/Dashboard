@@ -1,6 +1,7 @@
 import { Tabs } from "antd";
 import DataExtraction from "../DataExtraction/DataExtraction";
 import Screenshots from "../Screenshots/Screenshots";
+import { GRAY_2 } from "../../Utility/Colors";
 
 const Keeper = () => {
   const getTabItems = () => {
@@ -43,6 +44,7 @@ const Keeper = () => {
           fontSize: "2em",
           textAlign: "left",
           marginBottom: 35,
+          color: GRAY_2,
         }}>
         Keeper
       </div>

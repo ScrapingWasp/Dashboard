@@ -1,3 +1,4 @@
+import Billing from "../Billing/Billing";
 import Drawer from "../Drawer/Drawer";
 import Keeper from "../Keeper/Keeper";
 import Landing from "../Landing/Landing";
@@ -18,7 +19,8 @@ const HomeDashboard = () => {
           paddingBottom: 100,
         }}>
         {/* <Landing /> */}
-        <Keeper />
+        {/* <Keeper /> */}
+        <Billing />
       </div>
     </div>
   );

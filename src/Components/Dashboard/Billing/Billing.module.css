@@ -1,0 +1,24 @@
+.subscriptionFeaturesContainer {
+  margin-bottom: 20px;
+}
+
+.subscriptionFeaturesContainer > div {
+  display: flex;
+  height: 35px;
+  align-items: center;
+  padding-left: 15px;
+  font-weight: 400;
+  color: #33415c;
+}
+
+.subscriptionFeaturesContainer > div > div:nth-child(1) {
+  width: 200px;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+}
+
+.subscriptionFeaturesContainer > div > div:nth-child(2) {
+  font-weight: bold;
+  font-size: 0.9em;
+}

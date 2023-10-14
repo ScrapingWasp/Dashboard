@@ -24,11 +24,11 @@ const services = [
     description: "Extract structured data from any website at a glance.",
     icon: <MdFindInPage style={serviceIconStyle} />,
   },
-  {
-    title: "Content monitoring",
-    description: "Monitor any website for changes in content.",
-    icon: <MdRemoveRedEye style={serviceIconStyle} />,
-  },
+  // {
+  //   title: "Content monitoring",
+  //   description: "Monitor any website for changes in content.",
+  //   icon: <MdRemoveRedEye style={serviceIconStyle} />,
+  // },
   {
     title: "Screenshots",
     description: "Take screenshots of any website's page at any time.",
