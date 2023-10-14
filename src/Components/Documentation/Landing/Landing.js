@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FireFilled } from "@ant-design/icons";
 import Drawer from "../Drawer/Drawer";
 import classes from "./Landing.module.css";
@@ -15,6 +15,10 @@ import { MdArrowForward } from "react-icons/md";
 
 const Landing = () => {
   const [selectedChildRef, setSelectedChildRef] = useState("/docs/setup");
+
+  useEffect(() => {
+    document.title = "ScrapingWasp - Docs";
+  }, []);
 
   const getSelectedChildComponent = () => {
     if (selectedChildRef === "/docs/setup") {

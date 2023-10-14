@@ -13,7 +13,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ margin: "auto", marginBottom: "10em" }}>
+    <div style={{ margin: "auto", marginBottom: "10em", overflowX: "hidden" }}>
       <Header />
       <div
         style={{
