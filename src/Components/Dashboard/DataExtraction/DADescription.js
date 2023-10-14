@@ -28,7 +28,7 @@ import {
 } from "react-code-blocks";
 import { beautifyHtml } from "../../Utility/Utils";
 
-const DADescription = () => {
+const DADescription = ({ setShowDescription }) => {
   const [activeDataSwitch, setActiveDataSwitch] = useState("structured_data");
   const debugJSONOld = {
     person: {
@@ -233,6 +233,7 @@ const DADescription = () => {
           {/* Job name */}
           <div
             className={classes.jobNameContainer}
+            onClick={() => setShowDescription(false)}
             style={{
               display: "flex",
               flexDirection: "row",

@@ -4,7 +4,7 @@ import { CORAL_RED, GRAY_2, GREEN, SECONDARY } from "../../Utility/Colors";
 import DADescription from "./DADescription";
 
 const DataExtraction = () => {
-  const [showDescription, setShowDescription] = useState(true);
+  const [showDescription, setShowDescription] = useState(false);
 
   const getColumns = () => {
     const columns = [
@@ -106,6 +106,7 @@ const DataExtraction = () => {
     return {
       onClick: (event) => {
         console.log("Row clicked:", record, rowIndex);
+        setShowDescription(true);
       },
       style: { cursor: "pointer" },
     };
@@ -117,7 +118,7 @@ const DataExtraction = () => {
         textAlign: "left",
       }}>
       {showDescription ? (
-        <DADescription />
+        <DADescription setShowDescription={setShowDescription} />
       ) : (
         <Table
           dataSource={getDataToShow()}
