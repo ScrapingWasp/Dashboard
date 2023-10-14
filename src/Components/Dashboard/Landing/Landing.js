@@ -2,6 +2,7 @@ import { MdAccountCircle } from "react-icons/md";
 import {
   BASIC_RADIUS,
   COOL_GRAY,
+  CORAL_RED,
   GENERIC_GRAY,
   GRAY_1,
   GRAY_2,
@@ -24,16 +25,25 @@ const getStarted = [
     title: "General web scraping",
     description: "Learn how to scrape data from any website.",
     href: "/getstarted/general",
+    beta: false,
   },
   {
     title: "Data extraction",
     description: "Learn how to extract data from a website.",
     href: "/getstarted/extraction",
+    beta: false,
   },
   {
     title: "Screenshots",
     description: "Learn how to take screenshots of any website's page.",
     href: "/getstarted/screenshots",
+    beta: false,
+  },
+  {
+    title: "Market analysis",
+    description: "Unlock intelligence from a website data over time.",
+    href: "/getstarted/analysis",
+    beta: true,
   },
 ];
 
@@ -134,7 +144,29 @@ const Landing = () => {
             return (
               <div key={index} className={classes.onboardingChild}>
                 <div>
-                  <div>{item.title}</div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}>
+                    <div>{item.title}</div>
+                    {item?.beta && (
+                      <div
+                        style={{
+                          backgroundColor: CORAL_RED,
+                          fontWeight: "normal",
+                          color: "white",
+                          fontSize: "0.8em",
+                          padding: 3,
+                          paddingLeft: 7,
+                          paddingRight: 7,
+                          borderRadius: BASIC_RADIUS + 10,
+                        }}>
+                        Beta
+                      </div>
+                    )}
+                  </div>
                   <div>{item.description}</div>
                 </div>
                 <div>
