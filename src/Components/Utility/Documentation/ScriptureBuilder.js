@@ -3,6 +3,21 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import YoutubeEmbed from "../YoutubeEmbed/YoutubeEmbed";
 import classes from "./ScriptureBuilder.module.css";
 
+// {
+//     title: "API Section 1",
+//     description: "Description for API section 1...",
+//     requests: [
+//       {
+//         requestCode: "GET /api/endpoint1",
+//         postRequestDescription: "Description after request code 1...",
+//       },
+//       {
+//         requestCode: "POST /api/endpoint2",
+//         postRequestDescription: "Description after request code 2...",
+//       },
+//     ],
+//   },
+
 const APIRequestSection = ({ section }) => {
   return (
     <div>
@@ -43,7 +58,6 @@ const ScriptureBuilder = ({
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
         }}>
         <div
           style={{
@@ -53,6 +67,7 @@ const ScriptureBuilder = ({
             paddingTop: 35,
             color: GRAY_2,
             lineHeight: 1.5,
+            flex: 1,
           }}>
           <div style={{ width: "85%" }}>
             <div
@@ -112,7 +127,7 @@ const ScriptureBuilder = ({
         {/* Right content */}
         <div
           style={{
-            width: 500,
+            width: 300,
             paddingTop: 35,
             paddingRight: 35,
           }}>

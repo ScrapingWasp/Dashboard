@@ -91,13 +91,6 @@ const features = [
     business: checkFeature(),
     description: "Extract structured data from any website at a glance.",
   },
-  //   {
-  //     name: "Content monitoring",
-  //     freelance: <></>,
-  //     startup: checkFeature(),
-  //     business: checkFeature(),
-  //     description: "Monitor any website for changes in content.",
-  //   },
   {
     name: "Screenshots",
     freelance: checkFeature(),

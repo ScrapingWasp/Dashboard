@@ -10,8 +10,8 @@ import {
 } from "../../Utility/Colors";
 import ScriptureBuilder from "../../Utility/Documentation/ScriptureBuilder";
 import { Button } from "antd";
-import { dollarsToCredits } from "../../Utility/Plans/Conversions";
 import { HighlightWord } from "../../Utility/HighlightWord";
+import { MdArrowForward } from "react-icons/md";
 
 const Landing = () => {
   const [selectedChildRef, setSelectedChildRef] = useState("/docs/setup");
@@ -76,51 +76,94 @@ const Landing = () => {
     } else if (selectedChildRef === "/docs/apikeys") {
       return (
         <ScriptureBuilder
-          title={"Create your account"}
-          subtitle="Learn how to create your account and get started."
-          description="Get started quickly by learning how to create and set up your account in a few easy steps. This simple guide will show you how to sign up and get ready to explore our features and services with ease."
-          otherComponent={
-            <Button
-              style={{
-                backgroundColor: PRIMARY,
-                fontWeight: "bold",
-                fontSize: "1em",
-                height: 45,
-                width: 200,
-                cursor: "pointer",
-                marginTop: 25,
-              }}
-              type="primary">
-              Signup for free
-            </Button>
-          }
-          apiDocAppender={[
-            {
-              title: "API Section 1",
-              description: "Description for API section 1...",
-              requests: [
-                {
-                  requestCode: "GET /api/endpoint1",
-                  postRequestDescription: "Description after request code 1...",
-                },
-                {
-                  requestCode: "POST /api/endpoint2",
-                  postRequestDescription: "Description after request code 2...",
-                },
-              ],
-            },
-          ]}
+          title={"Get your API Keys"}
+          subtitle="Learn How to Obtain Your API Keys."
+          description="Explore ScrapingWasp's powerful APIs by getting your API keys. Follow our straightforward guide to navigate through the account dashboard, locate your keys, and keep them safely for your application development and integration tasks."
+          otherComponent={null}
+          apiDocAppender={null}
           youtubeVideoId={"dRJVKoYhisM"}
+          previousPage={{
+            name: "Create your account",
+            href: "/docs/setup",
+          }}
+          nextPage={{
+            name: "Make your first request",
+            href: "/docs/helloworld",
+          }}
         />
       );
     } else if (selectedChildRef === "/docs/helloworld") {
-      return <div>Make first request</div>;
+      return (
+        <ScriptureBuilder
+          title={"Make your first request"}
+          subtitle="Learn How to Make Your First API Request with ScrapingWasp"
+          description="Embark on your journey by making your first API request seamlessly. This guide will walk you through crafting and sending your initial request, helping you to interact with ScrapingWasp, and explore the robust capabilities of our API in a straightforward manner."
+          otherComponent={null}
+          apiDocAppender={null}
+          youtubeVideoId={"dRJVKoYhisM"}
+          previousPage={{
+            name: "Get your API Keys",
+            href: "/docs/apikeys",
+          }}
+          nextPage={{
+            name: "General web scraping API",
+            href: "/docs/webscraping",
+          }}
+        />
+      );
     } else if (selectedChildRef === "/docs/webscraping") {
-      return <div>General web scraping</div>;
+      return (
+        <ScriptureBuilder
+          title={"General Web Scraping API"}
+          subtitle="Learn How to Scrape any website at Low Cost"
+          description="Discover cost-effective approaches to web scraping without compromising quality. This guide unveils how you can extract valuable data from any website while keeping your expenditures in check, ensuring you gather the insights you need without breaking the bank."
+          otherComponent={null}
+          apiDocAppender={null}
+          youtubeVideoId={"dRJVKoYhisM"}
+          previousPage={{
+            name: "Make your first request",
+            href: "/docs/helloworld",
+          }}
+          nextPage={{
+            name: "Data extraction API",
+            href: "/docs/extraction",
+          }}
+        />
+      );
     } else if (selectedChildRef === "/docs/extraction") {
-      return <div>Data extraction</div>;
+      return (
+        <ScriptureBuilder
+          title={"Data Extraction API"}
+          subtitle="Learn How to Tranform any website's page into Structured data."
+          description="Unlock the secrets to converting website pages into organized, structured data. This guide takes you through a step-by-step process of transforming raw web page content into a structured format, making it easy to analyze, visualize, and leverage the information effectively in your projects or applications."
+          otherComponent={null}
+          apiDocAppender={null}
+          youtubeVideoId={"dRJVKoYhisM"}
+          previousPage={{
+            name: "General web scraping API",
+            href: "/docs/webscraping",
+          }}
+          nextPage={{
+            name: "Screenshots API",
+            href: "/docs/screenshots",
+          }}
+        />
+      );
     } else if (selectedChildRef === "/docs/screenshots") {
-      return <div>Screenshots</div>;
+      return (
+        <ScriptureBuilder
+          title={"Screenshots API"}
+          subtitle="Learn How to Take Screenshots any website's page at Ease."
+          description="Explore the straightforward methods to effortlessly capture screenshots of any website page. This guide introduces you to easy-to-follow steps and tips, enabling you to obtain clear and precise screenshots of web pages, which you can utilize for documentation, analysis, or sharing visual data seamlessly."
+          otherComponent={null}
+          apiDocAppender={null}
+          youtubeVideoId={"dRJVKoYhisM"}
+          previousPage={{
+            name: "General web scraping API",
+            href: "/docs/webscraping",
+          }}
+        />
+      );
     } else {
       return <div>setup</div>;
     }
@@ -140,6 +183,7 @@ const Landing = () => {
             height: "100%",
             display: "flex",
             alignItems: "center",
+            justifyContent: "space-between",
           }}>
           <div
             style={{
@@ -151,6 +195,22 @@ const Landing = () => {
             }}>
             <FireFilled style={{ color: SECONDARY }} />{" "}
             <span style={{ paddingLeft: 3 }}>ScrapingWasp</span>
+          </div>
+          <div
+            style={{
+              fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              color: PRIMARY_DILUTED,
+            }}
+            className={classes.backToPortalButton}>
+            Go to Dashboard{" "}
+            <MdArrowForward
+              style={{
+                position: "relative",
+                marginLeft: 10,
+              }}
+            />
           </div>
         </div>
       </div>

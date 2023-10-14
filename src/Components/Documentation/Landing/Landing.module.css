@@ -13,3 +13,14 @@
   overflow-y: hidden;
   height: 100%;
 }
+
+.backToPortalButton {
+  border: 1px solid #fff;
+  padding: 7px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.backToPortalButton:hover {
+  border-color: #d0d5e9;
+}

@@ -40,12 +40,6 @@ const getStarted = [
     href: "/getstarted/screenshots",
     beta: false,
   },
-  // {
-  //   title: "Market analysis",
-  //   description: "Unlock intelligence from a website data over time.",
-  //   href: "/getstarted/analysis",
-  //   beta: true,
-  // },
 ];
 
 const getAPIKeysCreds = () => {

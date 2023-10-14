@@ -21,11 +21,6 @@ const Keeper = () => {
         label: "Screenshots",
         children: <Screenshots />,
       },
-      //   {
-      //     key: "3",
-      //     label: "Market analysis",
-      //     children: "Content of Tab Pane 3",
-      //   },
     ];
 
     return items;
