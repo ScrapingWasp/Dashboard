@@ -1,0 +1,24 @@
+.pagesOptions > div {
+  border: 1px solid #fff;
+  font-size: 1em;
+  font-weight: 600;
+  color: #00509d;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 40px;
+  border-radius: 100px;
+}
+
+.pagesOptions > div:nth-child(1) {
+  padding-right: 7px;
+}
+
+.pagesOptions > div:nth-child(2) {
+  padding-left: 7px;
+}
+
+.pagesOptions > div:hover {
+  border-color: #f0f0f0;
+  background-color: #f0f0f0;
+}
