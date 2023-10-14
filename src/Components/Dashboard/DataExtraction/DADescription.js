@@ -19,6 +19,14 @@ import {
 import classes from "./DADescription.module.css";
 import { addContextedCodeLine } from "../../Utility/HighlightWord";
 import JSONViewer from "../../Utility/JSONViewer/JSONViewer";
+import {
+  CodeBlock,
+  dracula,
+  solarizedLight,
+  a11yLight,
+  atomOneLight,
+} from "react-code-blocks";
+import { beautifyHtml } from "../../Utility/Utils";
 
 const DADescription = () => {
   const [activeDataSwitch, setActiveDataSwitch] = useState("structured_data");
@@ -172,6 +180,8 @@ const DADescription = () => {
       ],
     },
   };
+  const debugHTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Complex Test Page</title><style>body{font-family:Arial,sans-serif;margin:0;padding:0;}.header,.footer{background-color:#4CAF50;color:white;padding:15px;text-align:center;}nav ul{padding:0;list-style-type:none;overflow:hidden;background-color:#333;}li{float:left;}li a{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none;}li a:hover{background-color:#ddd;color:black;}</style></head><body><div class="header"><h1>Explore the World of Web Development</h1><p>Dive deep into various aspects, including frontend, backend, and full-stack development.</p></div><nav><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#contact">Contact</a></li></ul></nav><main><article><h2>Frontend Development</h2><p>The frontend of a website is the part that users interact with. Everything that you see when you’re navigating around the Internet, from fonts and colors to dropdown menus and sliders, is a combo of HTML, CSS, and JavaScript being controlled by your computer’s browser.</p></article><section><h3>Backend Development</h3><p>Backend development refers to server-side development. Backend development works in tandem with the front end to deliver the final product to the end user. While front-end developers are responsible for client-side programming, back-end developers have to deal with the server-side.</p><code><?php $text = "Backend developers ensure that the server, the database, and the server-side applications function smoothly."; echo "<p>" . $text . "</p>";?></code></section><aside><h4>Full-stack Development</h4><p>A full-stack web developer is a technology expert who can work on both in the front end & back-end of any application. The person should be familiar with each layer of a 3-tier model. The 3-tier model includes The Presentation layer (Mainly related to the UI/UX of the application frontend), Business Logic Layer (Backend part of any application), and the database Layer.</p></aside></main><footer class="footer"><p>&copy; 2023 Complex Web Page. All rights reserved.</p></footer><script>document.querySelectorAll('nav ul li a').forEach(function(el){el.addEventListener('click',function(ev){ev.preventDefault();alert('This link is disabled for the demo!');});});</script></body></html>
+`;
 
   const getStatusColors = (status) => {
     let color;
@@ -278,11 +288,15 @@ const DADescription = () => {
       {/* Data swicth */}
       <div className={classes.dataSwitch}>
         <div>
-          <div style={getActiveDataSwitchStyle("raw_data")}>
+          <div
+            style={getActiveDataSwitchStyle("raw_data")}
+            onClick={() => setActiveDataSwitch("raw_data")}>
             <MdInsertDriveFile style={{ fontSize: "1.3em", marginRight: 5 }} />{" "}
             <div>Raw Data</div>
           </div>
-          <div style={getActiveDataSwitchStyle("structured_data")}>
+          <div
+            style={getActiveDataSwitchStyle("structured_data")}
+            onClick={() => setActiveDataSwitch("structured_data")}>
             <MdSchema style={{ fontSize: "1.3em", marginRight: 5 }} />{" "}
             <div>Structured data</div>
           </div>
@@ -305,7 +319,25 @@ const DADescription = () => {
           marginTop: 5,
         }}>
         <div>
-          <JSONViewer value={debugJSON} />
+          {activeDataSwitch === "structured_data" ? (
+            <JSONViewer value={debugJSON} />
+          ) : (
+            <div>
+              <CodeBlock
+                text={beautifyHtml(debugHTML, 5)}
+                language={"html"}
+                showLineNumbers={false}
+                theme={atomOneLight}
+                wrapLines={true}
+                wrapLongLines
+                codeContainerStyle={{
+                  textAlign: "left",
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
