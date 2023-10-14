@@ -7,13 +7,18 @@
 }
 
 .dataSwitch {
-  border-bottom: 1px solid #d0d5e9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dataSwitch > div:nth-child(1) {
   display: flex;
   margin-top: 1.5em;
   padding-bottom: 1em;
 }
 
-.dataSwitch > div {
+.dataSwitch > div:nth-child(1) > div {
   border: 1px solid #fff;
   width: 150px;
   display: flex;
@@ -26,7 +31,15 @@
   cursor: pointer;
 }
 
-.dataSwitch > div:hover {
+.dataSwitch > div:nth-child(1) > div:hover {
   border-color: #f3f4f9;
   background-color: #f3f4f9;
+}
+
+.copyData {
+  cursor: pointer;
+}
+
+.copyData:hover {
+  color: #00509d;
 }

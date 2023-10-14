@@ -4,9 +4,11 @@ import {
   MdInsertDriveFile,
   MdSchema,
   MdCalendarMonth,
+  MdContentCopy,
 } from "react-icons/md";
 import { Tag } from "antd";
 import {
+  BASIC_RADIUS,
   CORAL_RED,
   GENERIC_GRAY,
   GRAY_2,
@@ -22,85 +24,80 @@ const DADescription = () => {
   const [activeDataSwitch, setActiveDataSwitch] = useState("structured_data");
 
   const debugJSON = {
-    "person": {
-        "name": "John Doe",
-        "age": 30,
-        "isStudent": false,
-        "subjects": [
-            "Mathematics",
-            "Physics",
-            "Chemistry"
-        ],
-        "address": {
-            "street": "123 Main St",
-            "city": "Anytown",
-            "state": "CA",
-            "country": {
-                "name": "United States",
-                "code": "US",
-                "regions": [
-                    {
-                        "name": "Northeast",
-                        "states": ["New York", "Massachusetts", "Pennsylvania"]
-                    },
-                    {
-                        "name": "West",
-                        "states": ["California", "Nevada", "Hawaii"]
-                    }
-                ]
-            }
+    person: {
+      name: "John Doe",
+      age: 30,
+      isStudent: false,
+      subjects: ["Mathematics", "Physics", "Chemistry"],
+      address: {
+        street: "123 Main St",
+        city: "Anytown",
+        state: "CA",
+        country: {
+          name: "United States",
+          code: "US",
+          regions: [
+            {
+              name: "Northeast",
+              states: ["New York", "Massachusetts", "Pennsylvania"],
+            },
+            {
+              name: "West",
+              states: ["California", "Nevada", "Hawaii"],
+            },
+          ],
         },
-        "contacts": [
-            {
-                "type": "email",
-                "value": "john.doe@example.com"
-            },
-            {
-                "type": "phone",
-                "value": "+1 (234) 567-8901"
-            }
-        ],
-        "projects": [
-            {
-                "name": "Project One",
-                "status": "completed",
-                "details": {
-                    "start_date": "2022-01-01",
-                    "end_date": "2022-06-01",
-                    "team_members": [
-                        {
-                            "name": "Alice",
-                            "role": "Developer"
-                        },
-                        {
-                            "name": "Bob",
-                            "role": "Tester"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "Project Two",
-                "status": "ongoing",
-                "details": {
-                    "start_date": "2022-05-01",
-                    "expected_end_date": "2023-01-01",
-                    "team_members": [
-                        {
-                            "name": "Charlie",
-                            "role": "Developer"
-                        },
-                        {
-                            "name": "Eve",
-                            "role": "Designer"
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-}
-
+      },
+      contacts: [
+        {
+          type: "email",
+          value: "john.doe@example.com",
+        },
+        {
+          type: "phone",
+          value: "+1 (234) 567-8901",
+        },
+      ],
+      projects: [
+        {
+          name: "Project One",
+          status: "completed",
+          details: {
+            start_date: "2022-01-01",
+            end_date: "2022-06-01",
+            team_members: [
+              {
+                name: "Alice",
+                role: "Developer",
+              },
+              {
+                name: "Bob",
+                role: "Tester",
+              },
+            ],
+          },
+        },
+        {
+          name: "Project Two",
+          status: "ongoing",
+          details: {
+            start_date: "2022-05-01",
+            expected_end_date: "2023-01-01",
+            team_members: [
+              {
+                name: "Charlie",
+                role: "Developer",
+              },
+              {
+                name: "Eve",
+                role: "Designer",
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
 
   const getStatusColors = (status) => {
     let color;
@@ -206,18 +203,33 @@ const DADescription = () => {
 
       {/* Data swicth */}
       <div className={classes.dataSwitch}>
-        <div style={getActiveDataSwitchStyle("raw_data")}>
-          <MdInsertDriveFile style={{ fontSize: "1.3em", marginRight: 5 }} />{" "}
-          <div>Raw Data</div>
+        <div>
+          <div style={getActiveDataSwitchStyle("raw_data")}>
+            <MdInsertDriveFile style={{ fontSize: "1.3em", marginRight: 5 }} />{" "}
+            <div>Raw Data</div>
+          </div>
+          <div style={getActiveDataSwitchStyle("structured_data")}>
+            <MdSchema style={{ fontSize: "1.3em", marginRight: 5 }} />{" "}
+            <div>Structured data</div>
+          </div>
         </div>
-        <div style={getActiveDataSwitchStyle("structured_data")}>
-          <MdSchema style={{ fontSize: "1.3em", marginRight: 5 }} />{" "}
-          <div>Structured data</div>
+        <div>
+          <MdContentCopy
+            className={classes.copyData}
+            style={{ fontSize: "1.8em" }}
+          />
         </div>
       </div>
 
       {/* Switch screen */}
-      <div style={{ border: "1px solid black" }}>
+      <div
+        style={{
+          border: "1px solid #d0d5e9",
+          paddingTop: 5,
+          paddingBottom: 5,
+          borderRadius: BASIC_RADIUS,
+          marginTop: 5,
+        }}>
         <div>
           <JSONViewer value={debugJSON} />
         </div>

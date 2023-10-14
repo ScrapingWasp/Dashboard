@@ -1,4 +1,17 @@
 import React, { useMemo, useState } from 'react';
+import { MdRemove, MdAdd } from "react-icons/md";
+import { BASIC_RADIUS, GRAY_2, GREEN, PRIMARY_DILUTED } from '../Colors';
+
+const basicExpandCollapseIconStyles = {
+    border:'1px solid black',
+    position:'relative',
+    top:3,
+    borderRadius:3
+}
+
+const explandIcon = (color) => <MdAdd color={color} style={{...basicExpandCollapseIconStyles, color, borderColor:color}} />
+
+const collapseIcon = (color) => <MdRemove color={color} style={{...basicExpandCollapseIconStyles, color, borderColor:color}} />
 
 const JSONTree = ({ json, depth = 0 }) => {
     const [collapsedKeys, setCollapsedKeys] = useState(new Set());
@@ -31,99 +44,59 @@ const JSONTree = ({ json, depth = 0 }) => {
     const keys = useMemo(() => Object.keys(json), [json]);
 
     return (
-        <div style={{
-            paddingLeft: depth === 0 ? 0 : 20,
-            fontFamily: 'Consolas, "Courier New", monospace',
-            borderLeft: depth > 0 ? '1px solid #ddd' : 'none',
-            marginLeft: depth > 0 ? 10 : 0
+        <div style={{ 
+            paddingLeft: depth === 0 ? 0 : 10, 
+            fontFamily: 'Consolas, "Courier New", monospace'
         }}>
-            {isArray ? (
-                <>
-                    <span style={{ color: '#1e1e1e' }}>[</span>
-                    <div style={{ marginLeft: 15 }}>
-                        {keys.map((key, index, array) => {
-                            const value = json[key];
-                            const isObject = typeof value === 'object' && value !== null && !Array.isArray(value);
-                            const isNestedArray = Array.isArray(value);
-                            const isLast = index === array.length - 1;
+            <div style={{
+                borderLeft: depth > 0 ? '1px dashed #ddd' : 'none',
+                paddingLeft: depth === 0 ? 0 : 10
+            }}>
+                <span style={{ color: '#1e1e1e', position:'relative', left:-15, backgroundColor:'white', height:20, display:'inline-block', paddingBottom:3 }}>
+                    {isArray ? '[' : '{'}
+                </span>
+                <div style={{ marginLeft: 15 }}>
+                    {keys.map((key, index, array) => {
+                        const value = json[key];
+                        const isObject = typeof value === 'object' && value !== null && !Array.isArray(value);
+                        const isNestedArray = Array.isArray(value);
+                        const isLast = index === array.length - 1;
 
-                            return (
-                                <div key={key} style={{ margin: '3px 0' }}>
-                                    <strong style={{ color: '#000080' }}>
-                                        <span
-                                            onClick={() => toggleKey(key)}
-                                            style={{
-                                                cursor: 'pointer',
-                                                color: '#1e1e1e',
-                                                marginRight: 5
-                                            }}
-                                            onMouseOver={(e) => e.target.style.color = '#a31515'}
-                                            onMouseOut={(e) => e.target.style.color = '#1e1e1e'}
-                                        >
-                                            {(isObject || isNestedArray) ? (collapsedKeys.has(key) ? '[+]' : '[-]') : ''}
-                                        </span>
-                                        {isArray ? `[${key}]: ` : `${key}: `}
-                                    </strong>
-                                    {isObject || isNestedArray ? (
-                                        collapsedKeys.has(key) ?
-                                            <span style={{ color: '#1e1e1e' }}>{isNestedArray ? '[...]' : '{...}'}</span> :
-                                            <JSONTree json={value} depth={depth + 1} />
-                                    ) : (
-                                        <span style={{ color: getColorByType(value) }}>
-                                            {JSON.stringify(value)}
-                                        </span>
-                                    )}
-                                    {!isLast && ','}
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <span style={{ color: '#1e1e1e' }}>]</span>
-                </>
-            ) : (
-                <>
-                    <span style={{ color: '#1e1e1e' }}>{'{'}</span>
-                    <div style={{ marginLeft: 15 }}>
-                        {keys.map((key, index, array) => {
-                            const value = json[key];
-                            const isObject = typeof value === 'object' && value !== null && !Array.isArray(value);
-                            const isNestedArray = Array.isArray(value);
-                            const isLast = index === array.length - 1;
-
-                            return (
-                                <div key={key} style={{ margin: '3px 0' }}>
-                                    <strong style={{ color: '#000080' }}>
-                                        <span
-                                            onClick={() => toggleKey(key)}
-                                            style={{
-                                                cursor: 'pointer',
-                                                color: '#1e1e1e',
-                                                marginRight: 5
-                                            }}
-                                            onMouseOver={(e) => e.target.style.color = '#a31515'}
-                                            onMouseOut={(e) => e.target.style.color = '#1e1e1e'}
-                                        >
-                                            {(isObject || isNestedArray) ? (collapsedKeys.has(key) ? '[+]' : '[-]') : ''}
-                                        </span>
-                                        {`${key}: `}
-                                    </strong>
-                                    {isObject || isNestedArray ? (
-                                        collapsedKeys.has(key) ?
-                                            <span style={{ color: '#1e1e1e' }}>{isNestedArray ? '[...]' : '{...}'}</span> :
-                                            <JSONTree json={value} depth={depth + 1} />
-                                    ) : (
-                                        <span style={{ color: getColorByType(value) }}>
-                                            {JSON.stringify(value)}
-                                        </span>
-                                    )}
-                                    {!isLast && ','}
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <span style={{ color: '#1e1e1e' }}>{'}'}</span>
-                </>
-            )}
+                        return (
+                            <div key={key} style={{ margin: '3px 0' }}>
+                                <strong style={{ color: '#000080' }}>
+                                    <span
+                                        onClick={() => toggleKey(key)}
+                                        style={{
+                                            cursor: 'pointer',
+                                            color: '#1e1e1e',
+                                            marginRight: 5
+                                        }}
+                                        onMouseOver={(e) => e.target.style.color = PRIMARY_DILUTED}
+                                        onMouseOut={(e) => e.target.style.color = '#1e1e1e'}
+                                    >
+                                        {(isObject || isNestedArray) ? (collapsedKeys.has(key) ? explandIcon(GREEN) : collapseIcon(GRAY_2)) : ''}
+                                    </span>
+                                    {isArray ? `[${key}]: ` : `${key}: `}
+                                </strong>
+                                {isObject || isNestedArray ? (
+                                    collapsedKeys.has(key) ?
+                                        <span style={{ color: '#1e1e1e' }}>{isNestedArray ? '[...]' : '{...}'}</span> :
+                                        <JSONTree json={value} depth={depth + 1} />
+                                ) : (
+                                    <span style={{ color: getColorByType(value) }}>
+                                        {JSON.stringify(value)}
+                                    </span>
+                                )}
+                                {!isLast && ','}
+                            </div>
+                        );
+                    })}
+                </div>
+                <span style={{ color: '#1e1e1e',position:'relative', left:-15, backgroundColor:'white', height:20, display:'inline-block', paddingTop:3 }}>
+                    {isArray ? ']' : '}'}
+                </span>
+            </div>
         </div>
     );
 };

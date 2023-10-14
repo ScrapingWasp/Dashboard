@@ -1,8 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { FixedSizeList as List } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
 import ReactDiffViewer from 'react-diff-viewer-continued';
-import prettier from 'prettier/standalone';
 import JSONTree from './JSONTree';
         
 
@@ -17,11 +14,7 @@ const prettifyJSON = (json) => JSON.stringify(json, null, 2);
   const newCode = useMemo(() => (value ? prettifyJSON(value) : ""), [value]);
 
   return (
-    <div style={{ fontFamily: 'Consolas, "Courier New", monospace' }}>
-      <button onClick={() => setIsExpanded(!isExpanded)}>
-        {isExpanded ? "Collapse" : "Expand"}
-      </button>
-
+    <div style={{ fontFamily: 'Consolas, "Courier New", monospace', paddingLeft:20 }}>
       {isExpanded ? (
         oldValue && value ? (
           <ReactDiffViewer
