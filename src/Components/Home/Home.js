@@ -6,6 +6,7 @@ import Panoply from "../Panoply/Panoply";
 import CodeShow from "../CodeShow/CodeShow";
 import { HighlightWord } from "../Utility/HighlightWord";
 import Pricing from "../Pricing/Pricing";
+import Promotion from "../Utility/Plans/Promotion";
 
 const Home = () => {
   useEffect(() => {
@@ -24,11 +25,14 @@ const Home = () => {
           flexDirection: "column",
           alignItems: "center",
         }}>
+        <div style={{ marginTop: "8.5em" }}>
+          <Promotion />
+        </div>
         <div
           style={{
             fontWeight: "bold",
             fontSize: "4em",
-            marginTop: "2.5em",
+            marginTop: "0.5em",
           }}>
           Develop robust web scrapers. Quickly.
         </div>

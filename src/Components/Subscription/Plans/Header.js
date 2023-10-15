@@ -6,7 +6,12 @@ import {
   MdOutlineViewCarousel,
   MdOutlineClose,
 } from "react-icons/md";
-import { GENERIC_GRAY, MEAN_GRAY, SECONDARY } from "../../Utility/Colors";
+import {
+  GENERIC_GRAY,
+  GREEN,
+  MEAN_GRAY,
+  SECONDARY,
+} from "../../Utility/Colors";
 import { Divider, Steps, Popover } from "antd";
 
 const genericStepsIconStyle = {
@@ -16,7 +21,14 @@ const genericStepsIconStyle = {
   top: 2,
 };
 
-const Header = () => {
+const genericStepsCheckedIconStyle = {
+  color: GREEN,
+  fontSize: "1.1em",
+  position: "relative",
+  top: 2,
+};
+
+const Header = ({ step }) => {
   return (
     <div
       style={{
@@ -70,15 +82,41 @@ const Header = () => {
               items={[
                 {
                   title: "Choose plan",
-                  icon: <MdCircle style={genericStepsIconStyle} />,
+                  icon: (
+                    <MdCircle
+                      style={
+                        step === "choose_plan" ||
+                        step === "payment" ||
+                        step === "completion"
+                          ? genericStepsCheckedIconStyle
+                          : genericStepsIconStyle
+                      }
+                    />
+                  ),
                 },
                 {
                   title: "Payment",
-                  icon: <MdCircle style={genericStepsIconStyle} />,
+                  icon: (
+                    <MdCircle
+                      style={
+                        step === "payment" || step === "completion"
+                          ? genericStepsCheckedIconStyle
+                          : genericStepsIconStyle
+                      }
+                    />
+                  ),
                 },
                 {
                   title: "Done",
-                  icon: <MdCircle style={genericStepsIconStyle} />,
+                  icon: (
+                    <MdCircle
+                      style={
+                        step === "completion"
+                          ? genericStepsCheckedIconStyle
+                          : genericStepsIconStyle
+                      }
+                    />
+                  ),
                 },
               ]}
             />
