@@ -5,6 +5,7 @@ import HomeDashboard from "./Components/Dashboard/Home/Home";
 import Landing from "./Components/Documentation/Landing/Landing";
 import Plans from "./Components/Subscription/Plans/Plans";
 import Signup from "./Components/Signup/Signup";
+import VerifyEmail from "./Components/Signup/VerifyEmail";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/checkEmail",
+    element: <VerifyEmail />,
   },
 ]);
 
