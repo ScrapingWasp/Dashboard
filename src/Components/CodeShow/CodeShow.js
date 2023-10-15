@@ -1,4 +1,4 @@
-import { GRAY_1, GRAY_2, LIGHT_GRAY } from "../Utility/Colors";
+import { COOL_GRAY, GRAY_1, GRAY_2, LIGHT_GRAY } from "../Utility/Colors";
 import {
   HighlightWord,
   addContextedCodeLine,
@@ -11,8 +11,8 @@ const CodeShow = () => {
   return (
     <div
       style={{
-        border: `1px solid ${LIGHT_GRAY}`,
-        backgroundColor: LIGHT_GRAY,
+        border: `1px solid ${COOL_GRAY}`,
+        backgroundColor: COOL_GRAY,
         width: "100%",
         marginTop: "3em",
         paddingTop: "3em",

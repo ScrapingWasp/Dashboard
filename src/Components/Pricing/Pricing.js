@@ -11,70 +11,10 @@ import {
   SECONDARY,
 } from "../Utility/Colors";
 import { HighlightWord } from "../Utility/HighlightWord";
-
-const plans = [
-  {
-    name: "Freelance",
-    price: 29,
-  },
-  {
-    name: "Startup",
-    price: 99,
-  },
-  {
-    name: "Business",
-    price: 259,
-  },
-];
-
-const checkFeature = () => {
-  return <MdCheck style={{ color: GREEN, fontSize: "2em" }} />;
-};
-
-const features = [
-  {
-    name: "API credits",
-    freelance: "250,000",
-    startup: "1,500,0000",
-    business: "4,000,000",
-  },
-  {
-    name: "Concurrent requests",
-    freelance: 10,
-    startup: 50,
-    business: 100,
-  },
-  {
-    name: "General web scraping",
-    freelance: checkFeature(),
-    startup: checkFeature(),
-    business: checkFeature(),
-  },
-  {
-    name: "Data extraction",
-    freelance: checkFeature(),
-    startup: checkFeature(),
-    business: checkFeature(),
-  },
-  {
-    name: "Content monitoring",
-    freelance: <></>,
-    startup: checkFeature(),
-    business: checkFeature(),
-  },
-  {
-    name: "Screenshots",
-    freelance: checkFeature(),
-    startup: checkFeature(),
-    business: checkFeature(),
-  },
-  {
-    name: "Priority email support",
-    freelance: <></>,
-    startup: checkFeature(),
-    business: checkFeature(),
-  },
-];
+import {
+  getPlansFeaturesList,
+  getPlansList,
+} from "../Utility/Plans/Conversions";
 
 const Pricing = () => {
   return (
@@ -110,7 +50,7 @@ const Pricing = () => {
         <tr>
           <td
             style={{ borderLeftColor: "white", borderTopColor: "white" }}></td>
-          {plans.map((plan, index) => {
+          {getPlansList().map((plan, index) => {
             return (
               <td
                 style={{
@@ -149,7 +89,7 @@ const Pricing = () => {
           })}
         </tr>
 
-        {features.map((feature, index) => {
+        {getPlansFeaturesList().map((feature, index) => {
           return (
             <tr>
               <td

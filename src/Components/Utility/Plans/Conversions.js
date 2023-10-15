@@ -1,19 +1,96 @@
+import { MdCheck } from "react-icons/md";
+import {
+  BUSINESS_COLOR,
+  FREELANCE_COLOR,
+  GREEN,
+  STARTUP_COLOR,
+} from "../Colors";
+
+const dollarToCreditRate = 8600;
+
 export const dollarsToCredits = (dollars) => {
-  if (dollars <= 29) {
-    return dollars / (29 / 250000);
-  } else if (dollars <= 99) {
-    return dollars / (99 / 1500000);
-  } else {
-    return dollars / (259 / 4000000);
-  }
+  return dollarToCreditRate * dollars;
 };
 
 export const creditsToDollars = (credits) => {
-  if (credits <= 250000) {
-    return credits * (29 / 250000);
-  } else if (credits <= 1500000) {
-    return credits * (99 / 1500000);
-  } else {
-    return credits * (259 / 4000000);
-  }
+  return Math.round(credits / dollarToCreditRate);
+};
+
+export const getPlansFeaturesList = () => {
+  const checkFeature = () => {
+    return <MdCheck style={{ color: GREEN, fontSize: "2em" }} />;
+  };
+
+  const features = [
+    {
+      name: "API credits",
+      freelance: "250,000",
+      startup: "1,500,0000",
+      business: "4,000,000",
+    },
+    {
+      name: "Concurrent requests",
+      freelance: 10,
+      startup: 50,
+      business: 100,
+    },
+    {
+      name: "General web scraping",
+      freelance: checkFeature(),
+      startup: checkFeature(),
+      business: checkFeature(),
+    },
+    {
+      name: "Data extraction",
+      freelance: checkFeature(),
+      startup: checkFeature(),
+      business: checkFeature(),
+    },
+    {
+      name: "Content monitoring",
+      freelance: <></>,
+      startup: checkFeature(),
+      business: checkFeature(),
+    },
+    {
+      name: "Screenshots",
+      freelance: checkFeature(),
+      startup: checkFeature(),
+      business: checkFeature(),
+    },
+    {
+      name: "Priority email support",
+      freelance: <></>,
+      startup: checkFeature(),
+      business: checkFeature(),
+    },
+  ];
+
+  return features;
+};
+
+export const getPlansList = () => {
+  const plans = [
+    {
+      name: "Freelance",
+      price: 29,
+      color: FREELANCE_COLOR,
+    },
+    {
+      name: "Startup",
+      price: 99,
+      color: STARTUP_COLOR,
+    },
+    {
+      name: "Business",
+      price: 259,
+      color: BUSINESS_COLOR,
+    },
+  ];
+
+  return plans;
+};
+
+export const parseNumbers = (number) => {
+  return `${number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

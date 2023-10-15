@@ -1,5 +1,6 @@
 export const PRIMARY = "#00509D";
 export const PRIMARY_DILUTED = "#00509D";
+export const PRIMARY_COUSIN = "#669BBC";
 export const SECONDARY = "#FFD500";
 export const SECONDARY_STRONG = "#FDC500";
 export const LIGHT_GRAY = "#fafafa";
@@ -14,3 +15,8 @@ export const LIGHT_GREEN = "rgb(108, 205, 124)";
 export const BASIC_RADIUS = 7;
 export const GREEN = "#34B37E";
 export const CORAL_RED = "#C1121F";
+// Plans
+export const TOPUP_COLOR = "#FA8136";
+export const FREELANCE_COLOR = "#F0B21B";
+export const STARTUP_COLOR = "#00509D";
+export const BUSINESS_COLOR = "#30C0BB";
