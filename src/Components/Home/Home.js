@@ -14,7 +14,12 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ margin: "auto", marginBottom: "10em", overflowX: "hidden" }}>
+    <div
+      style={{
+        margin: "auto",
+        marginBottom: "10em",
+        overflowX: "hidden",
+      }}>
       <Header />
       <div
         style={{
@@ -39,7 +44,7 @@ const Home = () => {
         <div
           style={{
             fontSize: "1.2em",
-            width: "80%",
+            width: 650,
             marginTop: "2em",
             lineHeight: 1.5,
           }}>

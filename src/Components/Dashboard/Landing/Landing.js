@@ -12,7 +12,7 @@ import {
   PRIMARY,
   PRIMARY_DILUTED,
 } from "../../Utility/Colors";
-import { Button, Progress, Space } from "antd";
+import { Button, Progress } from "antd";
 import classes from "./Landing.module.css";
 import {
   MdCircle,

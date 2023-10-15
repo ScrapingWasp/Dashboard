@@ -3,11 +3,10 @@ import {
   BASIC_RADIUS,
   GENERIC_GRAY,
   GRAY_2,
-  GREEN,
   PRIMARY,
   SECONDARY,
 } from "../Utility/Colors";
-import { MdCheckCircle, MdEmail } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 import { FireFilled } from "@ant-design/icons";
 
 const VerifyEmail = () => {

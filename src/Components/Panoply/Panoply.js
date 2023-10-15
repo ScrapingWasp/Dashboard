@@ -1,8 +1,6 @@
-import { IeSquareFilled } from "@ant-design/icons";
 import {
   MdFindInPage,
   MdTravelExplore,
-  MdRemoveRedEye,
   MdOutlineScreenshotMonitor,
 } from "react-icons/md";
 import { GRAY_1, GRAY_2 } from "../Utility/Colors";
@@ -38,7 +36,7 @@ const Panoply = () => {
         margin: "auto",
         display: "flex",
         flexDirection: "row",
-        width: "90%",
+        width: "70%",
         paddingTop: "8em",
         alignItems: "center",
         justifyContent: "center",

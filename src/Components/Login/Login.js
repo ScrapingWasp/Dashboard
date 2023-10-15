@@ -1,29 +1,18 @@
 import React, { useState } from "react";
-import { FireFilled, InfoCircleOutlined } from "@ant-design/icons";
-import { MdKeyboardArrowRight, MdOutlineDone } from "react-icons/md";
-import { Button, Form, Input, Radio, Tag, List } from "antd";
+import { FireFilled } from "@ant-design/icons";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { Button, Form, Input } from "antd";
 import {
   BASIC_RADIUS,
-  COOL_GRAY,
   GENERIC_GRAY,
   GRAY_1,
   GRAY_2,
-  GREEN,
   LIGHT_GRAY,
   MEAN_GRAY,
   MEAN_LIGHT_GRAY,
   PRIMARY,
   SECONDARY,
 } from "../Utility/Colors";
-import PasswordStrengthBar from "react-password-strength-bar";
-import { HighlightWord } from "../Utility/HighlightWord";
-
-const data = [
-  "1500 free credits after sign up",
-  "20+ concurrent requests for free",
-  "Limitless data retention",
-  "Extremely fast support",
-];
 
 const basicInputStyle = {
   height: 40,
@@ -95,6 +84,7 @@ const Login = () => {
               <div>Welcome back!</div>
             </div>
             <div
+              onClick={() => (window.location.href = "/signup")}
               style={{
                 fontWeight: "normal",
                 fontSize: 16,

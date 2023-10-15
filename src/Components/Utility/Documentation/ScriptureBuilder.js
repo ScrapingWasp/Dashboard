@@ -1,4 +1,4 @@
-import { COOL_GRAY, GENERIC_GRAY, GRAY_1, GRAY_2 } from "../Colors";
+import { GENERIC_GRAY, GRAY_1, GRAY_2 } from "../Colors";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import YoutubeEmbed from "../YoutubeEmbed/YoutubeEmbed";
 import classes from "./ScriptureBuilder.module.css";

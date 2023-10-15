@@ -48,7 +48,7 @@ const Keeper = () => {
         }}>
         Keeper
       </div>
-      <Tabs defaultActiveKey="2" onChange={onTabChange} items={getTabItems()} />
+      <Tabs defaultActiveKey="1" onChange={onTabChange} items={getTabItems()} />
     </div>
   );
 };

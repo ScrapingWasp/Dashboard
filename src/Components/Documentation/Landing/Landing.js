@@ -42,7 +42,7 @@ const Landing = () => {
                   alignItems: "flex-end",
                 }}>
                 <Button
-                  onClick={() => window.open("/", "_blank")}
+                  onClick={() => window.open("/signup", "_blank")}
                   style={{
                     backgroundColor: PRIMARY,
                     fontWeight: "bold",
@@ -58,7 +58,7 @@ const Landing = () => {
                 <div style={{ marginLeft: 20 }}>
                   Or{" "}
                   <span
-                    onClick={() => window.open("/", "_blank")}
+                    onClick={() => window.open("/login", "_blank")}
                     style={{
                       fontWeight: "bold",
                       color: PRIMARY_DILUTED,
@@ -191,12 +191,14 @@ const Landing = () => {
             justifyContent: "space-between",
           }}>
           <div
+            onClick={() => (window.location.href = "/docs")}
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
               fontWeight: "bolder",
               fontSize: "1.3em",
+              cursor: "pointer",
             }}>
             <FireFilled style={{ color: SECONDARY }} />{" "}
             <span style={{ paddingLeft: 3 }}>
@@ -204,6 +206,7 @@ const Landing = () => {
             </span>
           </div>
           <div
+            onClick={() => (window.location.href = "/")}
             style={{
               fontWeight: "bold",
               display: "flex",

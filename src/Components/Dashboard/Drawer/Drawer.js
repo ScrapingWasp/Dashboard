@@ -16,12 +16,10 @@ import {
   GRAY_1,
   GRAY_2,
   GREEN,
-  LIGHT_GRAY,
   PRIMARY,
   SECONDARY,
 } from "../../Utility/Colors";
-import { Button, Progress, Dropdown, Space } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { Button, Progress, Dropdown } from "antd";
 
 const optionsIconStyle = { fontSize: "1.1em", marginRight: 15, color: GRAY_2 };
 
@@ -34,12 +32,12 @@ const options = [
   {
     name: "Keeper",
     icon: <MdStorage style={optionsIconStyle} />,
-    href: "/storage",
+    href: "/dashboard/keeper",
   },
   {
     name: "Billing",
     icon: <MdCreditCard style={optionsIconStyle} />,
-    href: "/billing",
+    href: "/dashboard/billing",
   },
 ];
 
@@ -57,7 +55,13 @@ const documentations = [
 ];
 
 const activateOption = (href) => {
-  if (window.location.pathname === href) {
+  const link = window.location.pathname.split("/");
+
+  if (link[link.length - 1] === "") {
+    link.pop();
+  }
+
+  if (link.join("/") === href) {
     return {
       color: "#00509d",
       backgroundColor: "#fafafa",
@@ -231,6 +235,7 @@ const Drawer = () => {
           {options.map((option, index) => {
             return (
               <div
+                onClick={() => (window.location.href = option.href)}
                 className={classes.optionChild}
                 style={activateOption(option.href)}>
                 {option.icon}
@@ -248,6 +253,15 @@ const Drawer = () => {
           {documentations.map((option, index) => {
             return (
               <div
+                onClick={() => {
+                  if (/documentation/i.test(option.href)) {
+                    window.open("/docs", "_blank");
+                  }
+
+                  if (/getstarted/i.test(option.href)) {
+                    window.location.href = "/dashboard";
+                  }
+                }}
                 className={classes.optionChild}
                 style={activateOption(option.href)}>
                 {option.icon}
@@ -288,6 +302,7 @@ const Drawer = () => {
           </div>
 
           <Button
+            onClick={() => (window.location.href = "/plans")}
             style={{
               fontWeight: "bolder",
               width: "100%",

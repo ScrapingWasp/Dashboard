@@ -6,7 +6,7 @@ import classes from "./Header.module.css";
 const options = [
   {
     title: "Docs",
-    link: "https://docs.scrapingwasp.ai/",
+    link: "/docs",
   },
   {
     title: "Pricing",
@@ -74,7 +74,12 @@ const Header = () => {
             flexDirection: "row",
             alignItems: "center",
           }}>
-          <div style={{ marginRight: 25, fontWeight: "bold" }}>Log in</div>
+          <div
+            style={{ marginRight: 25, fontWeight: "bold" }}
+            className={classes.loginElement}
+            onClick={() => (window.location.href = "/login")}>
+            Log in
+          </div>
           <Button
             style={{
               backgroundColor: PRIMARY,
@@ -82,6 +87,9 @@ const Header = () => {
               fontSize: "1em",
               height: 45,
               cursor: "pointer",
+            }}
+            onClick={() => {
+              window.location.href = "/signup";
             }}
             type="primary">
             Sign up for free

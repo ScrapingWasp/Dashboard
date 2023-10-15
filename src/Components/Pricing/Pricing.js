@@ -1,13 +1,9 @@
-import { MdCheck } from "react-icons/md";
 import classes from "./Pricing.module.css";
 import {
   BASIC_RADIUS,
-  DARK_GREEN,
-  GRAY_1,
   GRAY_2,
-  GREEN,
-  LIGHT_GREEN,
   PRIMARY,
+  PRIMARY_DILUTED,
   SECONDARY,
 } from "../Utility/Colors";
 import { HighlightWord } from "../Utility/HighlightWord";
@@ -15,32 +11,51 @@ import {
   getPlansFeaturesList,
   getPlansList,
 } from "../Utility/Plans/Conversions";
+import { Button } from "antd";
 
 const Pricing = () => {
+  const getPlans = () => {
+    const originalPlans = getPlansList();
+
+    return originalPlans;
+  };
+
+  const getFeatures = () => {
+    return getPlansFeaturesList();
+  };
+
   return (
-    <div style={{ marginTop: "7.5em" }}>
+    <div style={{ marginTop: "8.5em" }}>
       <div
         style={{
           fontWeight: "bolder",
           fontSize: "2em",
-          marginBottom: "2em",
+          marginBottom: "2.5em",
         }}>
         Simple, transparent and {HighlightWord("low pricing.")}
       </div>
+
       <table className={classes.tablePricing}>
         <tr className={classes.noTR}>
           <td></td>
           <td></td>
-          <td
-            style={{
-              backgroundColor: SECONDARY,
-              borderTopLeftRadius: BASIC_RADIUS,
-              borderTopRightRadius: BASIC_RADIUS,
-            }}>
+          <td>
             <div
               style={{
                 color: "black",
-                fontWeight: "bold",
+                fontWeight: 600,
+                backgroundColor: SECONDARY,
+                borderTopLeftRadius: BASIC_RADIUS,
+                borderTopRightRadius: BASIC_RADIUS,
+                height: "80%",
+                width: "80%",
+                margin: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                top: 7,
+                fontSize: "0.9em",
               }}>
               Recommended
             </div>
@@ -49,39 +64,75 @@ const Pricing = () => {
         </tr>
         <tr>
           <td
-            style={{ borderLeftColor: "white", borderTopColor: "white" }}></td>
-          {getPlansList().map((plan, index) => {
+            style={{
+              borderLeftColor: "white",
+              borderTopColor: "white",
+            }}></td>
+          {getPlans().map((plan, index) => {
             return (
               <td
                 style={{
                   paddingBottom: "1em",
                   paddingTop: "1em",
-                  backgroundColor: index === 1 ? "black" : "white",
-                  borderColor: index === 1 ? "black" : "#f0f0f0",
+                  backgroundColor: "white",
+                  borderColor: "#f0f0f0",
                 }}>
-                <div>
+                <div
+                  style={{
+                    textAlign: "left",
+                    width: "80%",
+                    margin: "auto",
+                  }}>
+                  <div
+                    style={{
+                      border: `1px solid ${plan.color}`,
+                      backgroundColor: plan.color,
+                      height: 4,
+                    }}></div>
                   <div
                     style={{
                       fontWeight: "bold",
                       fontSize: "1.3em",
-                      marginBottom: "0.5em",
-                      color: index === 1 ? "white" : "black",
+                      marginBottom: "1em",
+                      color: "black",
+                      marginTop: 10,
                     }}>
                     {plan.name}
                   </div>
-                  <div>
+                  <div style={{ marginBottom: 30 }}>
                     <span
                       style={{
                         fontWeight: "bolder",
                         fontSize: "2em",
-                        color: index === 1 ? "white" : PRIMARY,
+                        color: PRIMARY,
                       }}>
                       ${plan.price}
                     </span>
-                    <span style={{ color: index === 1 ? "white" : GRAY_2 }}>
+                    {/* Suffix */}
+                    <span style={{ color: GRAY_2, fontSize: "0.9em" }}>
                       {" "}
                       /month
                     </span>
+                  </div>
+                  <div>
+                    <div
+                      style={{
+                        marginBottom: 10,
+                        fontSize: "0.8em",
+                        minHeight: 20,
+                      }}></div>
+                    <Button
+                      onClick={() => {}}
+                      style={{
+                        width: "100%",
+                        height: 40,
+                        backgroundColor: PRIMARY_DILUTED,
+                        borderColor: PRIMARY_DILUTED,
+                        color: "white",
+                        fontWeight: 600,
+                      }}>
+                      Choose plan
+                    </Button>
                   </div>
                 </div>
               </td>
@@ -89,7 +140,7 @@ const Pricing = () => {
           })}
         </tr>
 
-        {getPlansFeaturesList().map((feature, index) => {
+        {getFeatures().map((feature, index) => {
           return (
             <tr>
               <td
@@ -105,6 +156,9 @@ const Pricing = () => {
                 }}>
                 {feature.name}
               </td>
+              {/* <td style={{ fontWeight: 600, fontSize: "1.1em" }}>
+                    {feature.topup}
+                  </td> */}
               <td style={{ fontWeight: 600, fontSize: "1.1em" }}>
                 {feature.freelance}
               </td>
@@ -112,9 +166,6 @@ const Pricing = () => {
                 style={{
                   fontWeight: 600,
                   fontSize: "1.1em",
-                  backgroundColor: "black",
-                  borderColor: "black",
-                  color: "white",
                 }}>
                 {feature.startup}
               </td>

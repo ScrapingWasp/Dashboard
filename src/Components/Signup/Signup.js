@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { FireFilled, InfoCircleOutlined } from "@ant-design/icons";
+import { FireFilled } from "@ant-design/icons";
 import { MdKeyboardArrowRight, MdOutlineDone } from "react-icons/md";
-import { Button, Form, Input, Radio, Tag, List } from "antd";
+import { Button, Form, Input, List } from "antd";
 import {
   BASIC_RADIUS,
-  COOL_GRAY,
   GENERIC_GRAY,
   GRAY_1,
   GRAY_2,
@@ -41,14 +40,19 @@ const Signup = () => {
   };
 
   return (
-    <div style={{ overflowX: "hidden", backgroundColor: LIGHT_GRAY }}>
+    <div
+      style={{
+        overflowX: "hidden",
+        backgroundColor: LIGHT_GRAY,
+        height: "100vh",
+      }}>
       <div
         style={{
           display: "flex",
           width: 1040,
           justifyContent: "center",
           margin: "auto",
-          paddingTop: "8%",
+          paddingTop: "5%",
           paddingBottom: 15,
         }}>
         <div
@@ -59,6 +63,7 @@ const Signup = () => {
             paddingRight: 50,
           }}>
           <div
+            onClick={() => (window.location.href = "/")}
             style={{
               display: "flex",
               flexDirection: "row",
@@ -67,6 +72,7 @@ const Signup = () => {
               fontSize: "1.2em",
               margin: "auto",
               paddingTop: "3%",
+              cursor: "pointer",
             }}>
             <FireFilled style={{ color: SECONDARY }} />{" "}
             <span style={{ paddingLeft: 3 }}>ScrapingWasp</span>
@@ -140,6 +146,7 @@ const Signup = () => {
               }}>
               <div>Sign up for free</div>
               <div
+                onClick={() => (window.location.href = "/login")}
                 style={{
                   fontWeight: "normal",
                   fontSize: 17,
