@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button } from "antd";
 import Header from "../Header/Header";
-import { PRIMARY, SECONDARY } from "../Utility/Colors";
+import { PRIMARY } from "../Utility/Colors";
 import Panoply from "../Panoply/Panoply";
 import CodeShow from "../CodeShow/CodeShow";
 import { HighlightWord } from "../Utility/HighlightWord";
