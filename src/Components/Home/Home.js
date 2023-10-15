@@ -72,6 +72,7 @@ const Home = () => {
             Signup for free
           </Button>
           <Button
+            onClick={() => (window.location.href = "/docs")}
             style={{
               backgroundColor: "#fff",
               fontWeight: "bold",

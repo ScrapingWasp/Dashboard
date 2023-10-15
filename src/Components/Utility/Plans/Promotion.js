@@ -1,9 +1,12 @@
 import { MdOutlineArrowForward } from "react-icons/md";
 import { BASIC_RADIUS, CORAL_RED, GENERIC_GRAY } from "../Colors";
+import classes from "./Promotion.module.css";
 
 const Promotion = () => {
   return (
     <div
+      onClick={() => (window.location.href = "/signup")}
+      className={classes.promotionContainer}
       style={{
         fontWeight: 500,
         fontSize: "1.1em",

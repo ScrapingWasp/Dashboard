@@ -86,7 +86,13 @@ const Signup = () => {
             }}>
             Get started with {HighlightWord("free credits.")}
           </div>
-          <div style={{ fontSize: "0.85em", width: "70%", marginTop: 20 }}>
+          <div
+            style={{
+              fontSize: "0.85em",
+              width: "70%",
+              marginTop: 20,
+              lineHeight: 1.5,
+            }}>
             Take advantage of ScrapingWasp's powerful data APIs. You can always
             upgrade later.
           </div>
