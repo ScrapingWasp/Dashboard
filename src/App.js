@@ -1,5 +1,6 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Home from "./Components/Home/Home";
 import HomeDashboard from "./Components/Dashboard/Home/Home";
 import Landing from "./Components/Documentation/Landing/Landing";
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
+      <Toaster />
       <RouterProvider router={router} />
     </div>
   );
