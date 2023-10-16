@@ -55,7 +55,7 @@ const Plans = () => {
   const [subscriptionUpdate, setSubscriptionUpdate] = useState(false);
 
   useEffect(() => {
-    document.title = "ScrapingWasp - Subscription";
+    document.title = "Subscription";
 
     (async () => {
       try {

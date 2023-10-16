@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Tag } from "antd";
 import { CORAL_RED, GRAY_2, GREEN, SECONDARY } from "../../Utility/Colors";
 import SCDescription from "./SCDescription";
@@ -124,6 +124,10 @@ const Screenshots = () => {
       style: { cursor: "pointer" },
     };
   };
+
+  useEffect(() => {
+    document.title = "Screenshots";
+  }, []);
 
   return (
     <div

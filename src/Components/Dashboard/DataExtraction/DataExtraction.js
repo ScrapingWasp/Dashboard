@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Tag } from "antd";
 import { CORAL_RED, GRAY_2, GREEN, SECONDARY } from "../../Utility/Colors";
 import DADescription from "./DADescription";
@@ -111,6 +111,10 @@ const DataExtraction = () => {
       style: { cursor: "pointer" },
     };
   };
+
+  useEffect(() => {
+    document.title = "Data Extraction";
+  }, []);
 
   return (
     <div

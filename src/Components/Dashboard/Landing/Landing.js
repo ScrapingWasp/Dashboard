@@ -57,7 +57,7 @@ const getAPIKeysCreds = () => {
 
 const Landing = () => {
   useEffect(() => {
-    document.title = "ScrapingWasp - Dashboard";
+    document.title = "Dashboard";
   }, []);
 
   return (

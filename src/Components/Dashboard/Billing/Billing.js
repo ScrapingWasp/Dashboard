@@ -111,7 +111,7 @@ const Billing = () => {
   const [currentPlan, setCurrentPlan] = useState("freelance");
 
   useEffect(() => {
-    document.title = "ScrapingWasp - Billing";
+    document.title = "Billing";
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FireFilled } from "@ant-design/icons";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { Button, Form, Input } from "antd";
@@ -28,6 +28,10 @@ const Login = () => {
   const onRequiredTypeChange = ({ requiredMarkValue }) => {
     setRequiredMarkType(requiredMarkValue);
   };
+
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
 
   return (
     <div style={{ overflowX: "hidden", backgroundColor: LIGHT_GRAY }}>

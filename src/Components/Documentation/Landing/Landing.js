@@ -18,7 +18,7 @@ const Landing = () => {
   const [selectedChildRef, setSelectedChildRef] = useState("/docs/setup");
 
   useEffect(() => {
-    document.title = "ScrapingWasp - Docs";
+    document.title = "Docs";
   }, []);
 
   const getSelectedChildComponent = () => {

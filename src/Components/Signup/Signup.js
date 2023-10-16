@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FireFilled } from "@ant-design/icons";
 import { MdKeyboardArrowRight, MdOutlineDone } from "react-icons/md";
 import { Button, Form, Input, List } from "antd";
@@ -38,6 +38,10 @@ const Signup = () => {
   const onRequiredTypeChange = ({ requiredMarkValue }) => {
     setRequiredMarkType(requiredMarkValue);
   };
+
+  useEffect(() => {
+    document.title = "Signup";
+  }, []);
 
   return (
     <div

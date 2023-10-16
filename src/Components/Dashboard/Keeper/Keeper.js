@@ -6,7 +6,7 @@ import { GRAY_2 } from "../../Utility/Colors";
 
 const Keeper = () => {
   useEffect(() => {
-    document.title = "ScrapingWasp - Keeper";
+    document.title = "Keeper";
   }, []);
 
   const getTabItems = () => {
