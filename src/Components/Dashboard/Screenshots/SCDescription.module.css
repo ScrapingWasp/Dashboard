@@ -42,6 +42,7 @@
 .imageShowerContainer > div > div {
   height: 200px;
   width: 200px;
+  margin-bottom: 20px;
 }
 
 .imageShowerContainer > div:not(:last-child) {
