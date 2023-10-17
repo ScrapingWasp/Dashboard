@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { MdAccountCircle } from "react-icons/md";
 import {
   BASIC_RADIUS,
@@ -20,6 +21,7 @@ import {
   MdCode,
   MdArrowForward,
 } from "react-icons/md";
+import { getPercentageUsed } from "../../Utility/Utils";
 
 const getStarted = [
   {
@@ -56,6 +58,8 @@ const getAPIKeysCreds = () => {
 };
 
 const Landing = () => {
+  const profileData = useSelector((state) => state?.signup?.loginData);
+
   useEffect(() => {
     document.title = "Dashboard";
   }, []);
@@ -93,7 +97,7 @@ const Landing = () => {
                   display: "flex",
                   alignItems: "center",
                 }}>
-                <div>Dominique Kanyik</div>
+                <div>{`${profileData?.firstName} ${profileData?.lastName}`}</div>
                 <div
                   style={{
                     border: `1px solid ${GREEN}`,
@@ -106,7 +110,7 @@ const Landing = () => {
                     borderRadius: BASIC_RADIUS + 50,
                     marginLeft: 20,
                   }}>
-                  Freelance
+                  {profileData?.balance?.subscription?.plan ?? "Free"}
                 </div>
               </div>
               <div
@@ -117,8 +121,7 @@ const Landing = () => {
                   marginTop: 5,
                   alignItems: "center",
                 }}>
-                crystal_clear •{" "}
-                <div style={{ marginLeft: 5 }}>domykanyiktesh01@gmail.com</div>
+                <div>{profileData?.email}</div>
               </div>
             </div>
           </div>
@@ -206,13 +209,15 @@ const Landing = () => {
               fontSize: "0.7em",
               color: GRAY_2,
             }}>
-            Billing period: Oct 8, 2023 - Nov 2, 2023
+            {profileData?.balance?.subscription?.expiration
+              ? "Billing period: From? - To?"
+              : "No subscriptions."}
           </div>
         </div>
         <div style={{ textAlign: "left" }}>
           <div>
             <Progress
-              percent={88}
+              percent={getPercentageUsed(profileData).notUsed}
               size={["100%", 35]}
               strokeColor={GREEN}
               showInfo={false}
@@ -229,7 +234,10 @@ const Landing = () => {
                 }}>
                 <MdCircle color={GENERIC_GRAY} style={{ marginRight: 10 }} />
                 <div style={{ fontSize: "0.9em" }}>
-                  Used - <strong>100 credits</strong>
+                  Used -{" "}
+                  <strong>
+                    {profileData?.balance?.usedCredits ?? 0} credits
+                  </strong>
                 </div>
               </div>
               {/* Remaining */}
@@ -241,7 +249,8 @@ const Landing = () => {
                 }}>
                 <MdCircle color={GREEN} style={{ marginRight: 10 }} />
                 <div style={{ fontSize: "0.9em" }}>
-                  Remaining - <strong>4000 credits</strong>
+                  Remaining -{" "}
+                  <strong>{profileData?.balance?.credits ?? 0} credits</strong>
                 </div>
               </div>
             </div>

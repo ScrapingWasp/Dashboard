@@ -49,3 +49,18 @@ export function beautifyHtml(html, indentSize = 2) {
 
   return formattedHtml;
 }
+
+export const roundToTwo = (num) => {
+  return +(Math.round(num + "e+2") + "e-2");
+};
+
+export const getPercentageUsed = (profileData) => {
+  if (!profileData?.balance) return 0;
+
+  const { credits, usedCredits } = profileData?.balance;
+
+  return {
+    used: roundToTwo((credits * 100) / (credits + usedCredits)),
+    notUsed: roundToTwo((credits * 100) / (credits + usedCredits)),
+  };
+};

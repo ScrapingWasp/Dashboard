@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateLoginData } from "../../../Redux/Reducers/SignupReducer";
 import { FireFilled, HomeFilled } from "@ant-design/icons";
 import {
   MdAccountCircle,
@@ -20,6 +23,9 @@ import {
   SECONDARY,
 } from "../../Utility/Colors";
 import { Button, Progress, Dropdown } from "antd";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { getPercentageUsed } from "../../Utility/Utils";
 
 const optionsIconStyle = { fontSize: "1.1em", marginRight: 15, color: GRAY_2 };
 
@@ -71,6 +77,48 @@ const activateOption = (href) => {
 };
 
 const Drawer = () => {
+  const profileData = useSelector((state) => state?.signup?.loginData);
+  const dispatch = useDispatch();
+
+  console.log(profileData);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const getProfile = await axios.get(
+          `${process.env.REACT_APP_BACKEND}/api/v1/profile`,
+          {
+            headers: {
+              Authorization: `Bearer ${profileData?.token}`,
+            },
+            withCredentials: true,
+          }
+        );
+
+        if (getProfile?.data?.status === "success") {
+          dispatch(updateLoginData(getProfile?.data?.data));
+        } else if (getProfile?.status === 401) {
+          dispatch(updateLoginData({}));
+          window.location.href = "/login";
+        } else {
+          toast.error("Failed to load your profile.");
+        }
+      } catch (error) {
+        console.log(error);
+        if (error?.response?.status === 401) {
+          window.location.href = "/login";
+          dispatch(updateLoginData({}));
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!profileData?.token) {
+      window.location.href = "/login";
+    }
+  }, [profileData]);
+
   const getProfileDropdown = () => {
     const profile = (
       <div
@@ -84,9 +132,11 @@ const Drawer = () => {
         />
         <div>
           <div style={{ fontWeight: 600, fontSize: "0.9em", color: GRAY_2 }}>
-            Dominique Kanyik
+            {profileData?.firstName}
           </div>
-          <div style={{ fontSize: "0.9em", color: PRIMARY }}>crystal_clear</div>
+          <div style={{ fontSize: "0.9em", color: PRIMARY }}>
+            Personal account
+          </div>
         </div>
       </div>
     );
@@ -113,7 +163,7 @@ const Drawer = () => {
                 padding: 3,
                 borderRadius: BASIC_RADIUS,
               }}>
-              Freelance
+              {profileData?.balance?.subscription?.plan ?? "Free"}
             </div>
           </div>
         ),
@@ -136,7 +186,9 @@ const Drawer = () => {
       },
       {
         label: (
-          <div className={classes.optionsContainer}>
+          <div
+            className={classes.optionsContainer}
+            onClick={() => dispatch(updateLoginData({}))}>
             <div className={classes.optionSignout}>
               <MdLogout style={optionsIconStyle} />
               <span>Sign out</span>
@@ -220,7 +272,7 @@ const Drawer = () => {
               <div>
                 <div
                   style={{ fontWeight: 600, fontSize: "0.9em", color: GRAY_2 }}>
-                  Dominique
+                  {profileData?.firstName}
                 </div>
                 <div style={{ color: GRAY_2, fontSize: "0.7em" }}>
                   Personal account
@@ -235,6 +287,7 @@ const Drawer = () => {
           {options.map((option, index) => {
             return (
               <div
+                key={option.href}
                 onClick={() => (window.location.href = option.href)}
                 className={classes.optionChild}
                 style={activateOption(option.href)}>
@@ -288,16 +341,28 @@ const Drawer = () => {
                 justifyContent: "space-between",
                 fontSize: "0.8em",
               }}>
-              <div style={{ fontWeight: "bold", color: GRAY_2 }}>Credits</div>
-              <div style={{ fontWeight: 500 }}>12% used</div>
+              <div style={{ fontWeight: "bold", color: GRAY_2 }}>
+                {profileData?.balance?.credits ? "Credits" : "No credits"}
+              </div>
+              <div style={{ fontWeight: 500 }}>
+                {profileData?.balance?.credits
+                  ? `${getPercentageUsed(profileData).used}% used`
+                  : ""}
+              </div>
             </div>
-            <Progress strokeColor={GREEN} percent={88} showInfo={false} />
+            <Progress
+              strokeColor={GREEN}
+              percent={getPercentageUsed(profileData).notUsed}
+              showInfo={false}
+            />
             <div
               style={{
                 fontSize: "0.8em",
                 color: GRAY_2,
               }}>
-              Credits resets on Dec 15
+              {profileData?.balance?.subscription?.expiration
+                ? `Credits resets on ${profileData?.balance?.subscription?.expiration}`
+                : ""}
             </div>
           </div>
 

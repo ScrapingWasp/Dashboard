@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateVerificationEmailData } from "../../Redux/Reducers/SignupReducer";
+import {
+  updateVerificationEmailData,
+  updateLoginData,
+} from "../../Redux/Reducers/SignupReducer";
 import { FireFilled } from "@ant-design/icons";
 import { MdKeyboardArrowRight, MdOutlineDone } from "react-icons/md";
 import { Button, Form, Input, List } from "antd";
@@ -69,6 +72,8 @@ const Signup = () => {
           password,
         }
       );
+
+      dispatch(updateLoginData({}));
 
       if (createAccount.data?.status === "success") {
         toast.success("Account successfully created!");

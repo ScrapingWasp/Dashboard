@@ -39,7 +39,7 @@ const Home = () => {
             fontSize: "4em",
             marginTop: "0.5em",
           }}>
-          Develop robust web scrapers. Quickly.
+          Develop robust data pipelines. Quickly.
         </div>
         <div
           style={{
@@ -48,7 +48,7 @@ const Home = () => {
             marginTop: "2em",
             lineHeight: 1.5,
           }}>
-          ScrapingWasp allows developers to build reliable web scrapers in
+          ScrapingWasp allows developers to build reliable data pipelines in
           minutes and at a {HighlightWord("low cost")}.
         </div>
 

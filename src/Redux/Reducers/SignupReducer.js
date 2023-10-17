@@ -9,7 +9,15 @@ export const signupReducer = createSlice({
       state.verifyEmailData = action.payload;
     },
     updateLoginData: (state, action) => {
-      state.loginData = action.payload;
+      let newToken = action.payload?.token
+        ? action.payload.token
+        : state.loginData?.token;
+
+      if (!action?.payload || Object.keys(action.payload).length <= 0) {
+        state.loginData = action.payload;
+      } else {
+        state.loginData = { ...action.payload, token: newToken };
+      }
     },
   },
 });

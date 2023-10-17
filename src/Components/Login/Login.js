@@ -28,7 +28,7 @@ const basicInputStyle = {
 const basicLabelStyle = { fontWeight: 600 };
 
 const Login = () => {
-  const loginData = useSelector((state) => state.signup.loginData);
+  const loginData = useSelector((state) => state?.signup?.loginData);
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
@@ -41,7 +41,7 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (loginData?.email) {
+    if (loginData?.token) {
       window.location.href = "/dashboard";
     }
   }, [loginData]);

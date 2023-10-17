@@ -15,7 +15,10 @@ import Loader from "../Utility/Loader/Loader";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
-import { updateVerificationEmailData } from "../../Redux/Reducers/SignupReducer";
+import {
+  updateVerificationEmailData,
+  updateLoginData,
+} from "../../Redux/Reducers/SignupReducer";
 
 const VerifyEmail = () => {
   const { token } = useParams();
@@ -43,6 +46,8 @@ const VerifyEmail = () => {
             }
           );
 
+          dispatch(updateLoginData({}));
+
           if (checkToken?.data?.status === "success") {
             setSuccessfulVerification(true);
             dispatch(updateVerificationEmailData({}));
@@ -56,6 +61,11 @@ const VerifyEmail = () => {
             toast.error(checkToken?.data?.message, { duration: 5000 });
             setVerificationToken(null);
             setIsCheckingVerificationToken(false);
+            setTimeout(() => {
+              if (!verifyEmailData?.email) {
+                window.location.href = "/";
+              }
+            }, 3000);
           } else {
             toast.error("Unable to confirm your email.", { duration: 5000 });
             setVerificationToken(null);
