@@ -22,7 +22,10 @@ export const signupReducer = createSlice({
   },
 });
 
-export const { updateVerificationEmailData, updateLoginData } =
-  signupReducer.actions;
+export const {
+  updateVerificationEmailData,
+  updateLoginData,
+  updateApiKeyData,
+} = signupReducer.actions;
 
 export default signupReducer.reducer;

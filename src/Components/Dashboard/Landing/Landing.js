@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdOutlineDone } from "react-icons/md";
 import {
   BASIC_RADIUS,
   COOL_GRAY,
@@ -13,7 +13,7 @@ import {
   PRIMARY,
   PRIMARY_DILUTED,
 } from "../../Utility/Colors";
-import { Button, Progress } from "antd";
+import { Button, Progress, Typography } from "antd";
 import classes from "./Landing.module.css";
 import {
   MdCircle,
@@ -22,6 +22,8 @@ import {
   MdArrowForward,
 } from "react-icons/md";
 import { getPercentageUsed } from "../../Utility/Utils";
+import axios from "axios";
+import Loader from "../../Utility/Loader/Loader";
 
 const getStarted = [
   {
@@ -47,22 +49,44 @@ const getStarted = [
 const getAPIKeysCreds = () => {
   return [
     {
-      name: "User Id",
-      value: "ui_323443323",
-    },
-    {
       name: "API Key",
-      value: "ak_323443323",
+      value: null,
     },
   ];
 };
 
 const Landing = () => {
   const profileData = useSelector((state) => state?.signup?.loginData);
+  const [apiKey, setApiKey] = useState(null);
 
   useEffect(() => {
     document.title = "Dashboard";
+
+    (async () => {
+      try {
+        const getKey = await axios.get(
+          `${process.env.REACT_APP_BACKEND}/api/v1/key`,
+          {
+            headers: {
+              Authorization: `Bearer ${profileData?.token}`,
+            },
+            withCredentials: true,
+          }
+        );
+
+        if (getKey?.data?.status === "success") {
+          setApiKey(getKey?.data?.data);
+        } else {
+          setApiKey("none");
+        }
+      } catch (error) {
+        console.error(error);
+        setApiKey("none");
+      }
+    })();
   }, []);
+
+  useEffect(() => {}, [profileData]);
 
   return (
     <div
@@ -296,13 +320,37 @@ const Landing = () => {
                     alignItems: "center",
                     marginBottom: 15,
                     justifyContent: "space-between",
+                    width: "100%",
                   }}>
-                  <div
+                  <Typography.Text
                     style={{
                       display: "flex",
                       flexDirection: "row",
                       alignItems: "center",
-                    }}>
+                    }}
+                    copyable={
+                      apiKey === "none" || !apiKey
+                        ? false
+                        : {
+                            icon: [
+                              <MdContentCopy
+                                color={PRIMARY}
+                                style={{ fontSize: "1.4em" }}
+                                key="copy-icon"
+                              />,
+                              <MdOutlineDone
+                                style={{
+                                  fontSize: "1.4em",
+                                  position: "relative",
+                                  color: GREEN,
+                                }}
+                                key="copied-icon"
+                              />,
+                            ],
+                            tooltips: ["Copy your API Key", "Copied!"],
+                            text: apiKey,
+                          }
+                    }>
                     <div
                       style={{
                         fontWeight: 600,
@@ -319,16 +367,33 @@ const Landing = () => {
                         borderRadius: BASIC_RADIUS,
                         padding: 5,
                         fontSize: "0.9em",
+                        width: 130,
+                        height: 20,
+                        cursor: "default",
+                        overflow: "hidden",
                       }}>
-                      {creds.value}
+                      {!apiKey ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}>
+                          <Loader size={20} color={PRIMARY} />
+                        </div>
+                      ) : apiKey === "none" ? (
+                        "Reload the page"
+                      ) : (
+                        `${String(apiKey).slice(0, 15)}...`
+                      )}
                     </div>
-                  </div>
-                  <MdContentCopy />
+                  </Typography.Text>
                 </div>
               );
             })}
           </div>
           <div
+            onClick={() => window.open("/docs", "_blank")}
             style={{
               display: "flex",
               alignItems: "center",
@@ -336,6 +401,7 @@ const Landing = () => {
               fontSize: "0.9em",
               marginTop: 25,
               color: PRIMARY,
+              cursor: "pointer",
             }}>
             View docs{" "}
             <MdArrowForward
