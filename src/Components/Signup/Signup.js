@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateVerificationEmailData } from "../../Redux/Reducers/SignupReducer";
 import { FireFilled } from "@ant-design/icons";
 import { MdKeyboardArrowRight, MdOutlineDone } from "react-icons/md";
 import { Button, Form, Input, List } from "antd";
@@ -16,6 +18,9 @@ import {
 } from "../Utility/Colors";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { HighlightWord } from "../Utility/HighlightWord";
+import toast from "react-hot-toast";
+import axios from "axios";
+import Loader from "../Utility/Loader/Loader";
 
 const data = [
   "1500 free credits after sign up",
@@ -33,10 +38,57 @@ const basicInputStyle = {
 const basicLabelStyle = { fontWeight: 600 };
 
 const Signup = () => {
+  const dispatch = useDispatch();
+
   const [form] = Form.useForm();
+  const [password, setPassword] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitActive, setIsSubmitActive] = useState(false);
   const [requiredMark, setRequiredMarkType] = useState("optional");
-  const onRequiredTypeChange = ({ requiredMarkValue }) => {
-    setRequiredMarkType(requiredMarkValue);
+
+  const handleFormSubmit = async () => {
+    if (isLoading) return;
+    try {
+      setIsLoading(true);
+
+      const validation = await form.validateFields();
+
+      const {
+        Firstname: firstname,
+        Lastname: lastname,
+        Email: email,
+        Password: password,
+      } = form.getFieldsValue();
+
+      const createAccount = await axios.post(
+        `${process.env.REACT_APP_BACKEND}/api/v1/signup`,
+        {
+          firstname,
+          lastname,
+          email,
+          password,
+        }
+      );
+
+      if (createAccount.data?.status === "success") {
+        toast.success("Account successfully created!");
+        dispatch(updateVerificationEmailData(createAccount?.data?.data));
+        window.location.href = "/verifyEmail";
+      } else if (createAccount?.data?.status === "fail") {
+        toast.error(createAccount?.data?.message, { duration: 5000 });
+      } //error
+      else {
+        toast.error("An unexpected error occured, please try again.", {
+          duration: 5000,
+        });
+      }
+      setIsLoading(false);
+    } catch (error) {
+      toast.error("An unexpected error occured, please try again.", {
+        duration: 5000,
+      });
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -182,7 +234,21 @@ const Signup = () => {
               initialValues={{
                 requiredMarkValue: requiredMark,
               }}
-              onValuesChange={onRequiredTypeChange}
+              onValuesChange={async () => {
+                try {
+                  await form.validateFields({
+                    validateOnly: true,
+                  });
+                  setIsSubmitActive(true);
+                } catch (error) {
+                  if (error?.errorFields?.length <= 0) {
+                    setIsSubmitActive(true);
+                  } else {
+                    setIsSubmitActive(false);
+                  }
+                }
+              }}
+              onSubmitCapture={handleFormSubmit}
               requiredMark={false}>
               <div
                 style={{
@@ -194,14 +260,32 @@ const Signup = () => {
                   label="Firstname"
                   name="Firstname"
                   style={basicLabelStyle}
-                  required>
+                  rules={[
+                    {
+                      required: true,
+                      message: "Missing firstname",
+                    },
+                    {
+                      min: 1,
+                      message: "Must be at least 1 character",
+                    },
+                  ]}>
                   <Input style={basicInputStyle} />
                 </Form.Item>
                 <Form.Item
                   label="Lastname"
                   name="Lastname"
                   style={basicLabelStyle}
-                  required>
+                  rules={[
+                    {
+                      required: true,
+                      message: "Missing lastname",
+                    },
+                    {
+                      min: 1,
+                      message: "Must be at least 1 character",
+                    },
+                  ]}>
                   <Input autoComplete="off" style={basicInputStyle} />
                 </Form.Item>
               </div>
@@ -209,7 +293,18 @@ const Signup = () => {
                 label="Email"
                 name="Email"
                 style={basicLabelStyle}
-                required>
+                rules={[
+                  { required: true, message: "Please enter your email" },
+                  {
+                    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "Invalid email address",
+                  },
+                  { max: 256, message: "Email should be max 256 characters!" },
+                  {
+                    pattern: /^\S+@\S+$/i,
+                    message: "Email should not contain spaces",
+                  },
+                ]}>
                 <Input
                   type="email"
                   autoComplete="off"
@@ -220,16 +315,28 @@ const Signup = () => {
                 label="Password"
                 name="Password"
                 style={basicLabelStyle}
-                required>
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your password",
+                  },
+                  {
+                    min: 8,
+                    message: "Must be at least 8 characters",
+                  },
+                ]}>
                 <Input.Password
                   type="password"
                   autoComplete="off"
                   style={basicInputStyle}
+                  value={password ?? ""}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <PasswordStrengthBar password={"password"} />
               </Form.Item>
+              <PasswordStrengthBar password={password ?? ""} />
               <Form.Item>
                 <Button
+                  disabled={!isSubmitActive}
                   type="primary"
                   style={{
                     height: 45,
@@ -237,10 +344,15 @@ const Signup = () => {
                     fontWeight: "bold",
                     fontSize: "1.1em",
                     backgroundColor: PRIMARY,
+                    color: "white",
                     marginTop: 10,
+                    opacity: isSubmitActive ? 1 : 0.5,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                   htmlType="submit">
-                  Sign up
+                  {isLoading ? <Loader size={30} color={"white"} /> : "Sign up"}
                 </Button>
               </Form.Item>
             </Form>

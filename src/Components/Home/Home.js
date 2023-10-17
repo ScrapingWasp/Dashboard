@@ -60,6 +60,7 @@ const Home = () => {
             marginTop: "3em",
           }}>
           <Button
+            onClick={() => (window.location.href = "/signup")}
             style={{
               backgroundColor: PRIMARY,
               fontWeight: "bold",
