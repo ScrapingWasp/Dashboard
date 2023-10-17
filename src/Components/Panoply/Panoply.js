@@ -1,8 +1,6 @@
-import { IeSquareFilled } from "@ant-design/icons";
 import {
   MdFindInPage,
   MdTravelExplore,
-  MdRemoveRedEye,
   MdOutlineScreenshotMonitor,
 } from "react-icons/md";
 import { GRAY_1, GRAY_2 } from "../Utility/Colors";
@@ -25,11 +23,6 @@ const services = [
     icon: <MdFindInPage style={serviceIconStyle} />,
   },
   {
-    title: "Content monitoring",
-    description: "Monitor any website for changes in content.",
-    icon: <MdRemoveRedEye style={serviceIconStyle} />,
-  },
-  {
     title: "Screenshots",
     description: "Take screenshots of any website's page at any time.",
     icon: <MdOutlineScreenshotMonitor style={serviceIconStyle} />,
@@ -40,11 +33,10 @@ const Panoply = () => {
   return (
     <div
       style={{
-        // border: "1px solid black",
         margin: "auto",
         display: "flex",
         flexDirection: "row",
-        width: "90%",
+        width: "70%",
         paddingTop: "8em",
         alignItems: "center",
         justifyContent: "center",
@@ -55,7 +47,6 @@ const Panoply = () => {
             style={{
               display: "flex",
               flexDirection: "row",
-              //   width: "40%",
               marginBottom: "2.5em",
               marginLeft: "1em",
               height: 80,

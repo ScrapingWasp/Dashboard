@@ -1,0 +1,56 @@
+.jobNameContainer {
+  cursor: pointer;
+}
+
+.jobNameContainer:hover {
+  color: #00509d;
+}
+
+.scHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scHeader > div:nth-child(1) {
+  display: flex;
+  margin-top: 1.5em;
+  padding-bottom: 1em;
+}
+
+.scHeader > div:nth-child(1) > div {
+  border: 1px solid #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding: 7px;
+  padding-left: 0;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.copyData {
+  cursor: pointer;
+}
+
+.copyData:hover {
+  color: #00509d;
+}
+
+.imageShowerContainer > div > div {
+  height: 200px;
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.imageShowerContainer > div:not(:last-child) {
+  margin-right: 20px;
+}
+
+.imageChildContainer {
+  border: 1px solid #d0d5e9;
+  box-shadow: 1px 2px 5px #d0d5e9;
+  border-radius: 7px;
+}

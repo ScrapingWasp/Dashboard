@@ -1,0 +1,25 @@
+.onboardingChild {
+  border: 1px solid #d0d5e9;
+  text-align: left;
+  width: 280px;
+  height: 140px;
+  padding: 15px;
+  border-radius: 7px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 2px 5px #f0f0f0;
+}
+
+.onboardingChild > div:nth-child(1) > div:nth-child(1) {
+  font-weight: bolder;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.onboardingChild > div:nth-child(1) > div:nth-child(2) {
+  font-size: 0.95em;
+  color: #33415c;
+}

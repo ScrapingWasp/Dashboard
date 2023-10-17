@@ -24,3 +24,8 @@
   padding: 10px;
   width: 100%;
 }
+
+.loginElement:hover {
+  color: #00509d;
+  cursor: pointer;
+}

@@ -1,0 +1,47 @@
+.jobNameContainer {
+  cursor: pointer;
+}
+
+.jobNameContainer:hover {
+  color: #00509d;
+}
+
+.dataSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dataSwitch > div:nth-child(1) {
+  display: flex;
+  margin-top: 1.5em;
+  padding-bottom: 1em;
+}
+
+.dataSwitch > div:nth-child(1) > div {
+  border: 1px solid #fff;
+  min-width: 90px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.dataSwitch > div:nth-child(1) > div:hover {
+  border-color: #f3f4f9;
+  background-color: #f3f4f9;
+}
+
+.copyData {
+  cursor: pointer;
+}
+
+.copyData:hover {
+  color: #00509d;
+}

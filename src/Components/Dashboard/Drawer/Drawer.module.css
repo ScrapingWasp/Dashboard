@@ -1,0 +1,40 @@
+.optionChild {
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  cursor: pointer;
+  border-left: 5px solid transparent;
+}
+
+.optionChild:hover {
+  color: #00509d;
+  background-color: #fafafa;
+  border-left: 5px solid #00509d;
+}
+
+.optionSignout {
+  display: flex;
+  align-items: center;
+  /* padding: 15px; */
+  padding-top: 12px;
+  padding-bottom: 12px;
+  cursor: pointer;
+}
+
+.optionSignout:hover {
+  color: #c1121f;
+}
+
+.optionChild > span {
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+.docsContainer {
+  border-top: 1px solid #d0d5e9;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

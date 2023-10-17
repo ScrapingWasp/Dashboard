@@ -1,0 +1,16 @@
+.tablePricing {
+  border-collapse: collapse;
+  margin: auto;
+  width: 83%;
+  margin-top: 2.5em;
+  table-layout: fixed;
+}
+
+.tablePricing td {
+  border: 1px solid #f0f0f0;
+  height: 50px;
+}
+
+.noTR td {
+  border: none;
+}

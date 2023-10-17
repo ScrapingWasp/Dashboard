@@ -1,7 +1,8 @@
 .tablePricing {
   border-collapse: collapse;
   margin: auto;
-  width: 85%;
+  width: 80%;
+  table-layout: fixed;
 }
 
 .tablePricing td {

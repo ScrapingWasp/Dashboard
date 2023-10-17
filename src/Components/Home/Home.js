@@ -1,14 +1,25 @@
+import React, { useEffect } from "react";
 import { Button } from "antd";
 import Header from "../Header/Header";
-import { PRIMARY, SECONDARY } from "../Utility/Colors";
+import { PRIMARY } from "../Utility/Colors";
 import Panoply from "../Panoply/Panoply";
 import CodeShow from "../CodeShow/CodeShow";
 import { HighlightWord } from "../Utility/HighlightWord";
 import Pricing from "../Pricing/Pricing";
+import Promotion from "../Utility/Plans/Promotion";
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "ScrapingWasp - Own the data";
+  }, []);
+
   return (
-    <div style={{ margin: "auto", marginBottom: "10em" }}>
+    <div
+      style={{
+        margin: "auto",
+        marginBottom: "10em",
+        overflowX: "hidden",
+      }}>
       <Header />
       <div
         style={{
@@ -19,18 +30,21 @@ const Home = () => {
           flexDirection: "column",
           alignItems: "center",
         }}>
+        <div style={{ marginTop: "8.5em" }}>
+          <Promotion />
+        </div>
         <div
           style={{
             fontWeight: "bold",
             fontSize: "4em",
-            marginTop: "2.5em",
+            marginTop: "0.5em",
           }}>
           Develop robust web scrapers. Quickly.
         </div>
         <div
           style={{
             fontSize: "1.2em",
-            width: "80%",
+            width: 650,
             marginTop: "2em",
             lineHeight: 1.5,
           }}>
@@ -46,6 +60,7 @@ const Home = () => {
             marginTop: "3em",
           }}>
           <Button
+            onClick={() => (window.location.href = "/signup")}
             style={{
               backgroundColor: PRIMARY,
               fontWeight: "bold",
@@ -58,6 +73,7 @@ const Home = () => {
             Signup for free
           </Button>
           <Button
+            onClick={() => (window.location.href = "/docs")}
             style={{
               backgroundColor: "#fff",
               fontWeight: "bold",
