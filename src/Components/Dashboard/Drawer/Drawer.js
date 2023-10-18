@@ -25,7 +25,11 @@ import {
 import { Button, Progress, Dropdown } from "antd";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { capitalize, getPercentageUsed } from "../../Utility/Utils";
+import {
+  capitalize,
+  getPercentageUsed,
+  getUserProfile,
+} from "../../Utility/Utils";
 
 const optionsIconStyle = { fontSize: "1.1em", marginRight: 15, color: GRAY_2 };
 
@@ -84,32 +88,7 @@ const Drawer = () => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const getProfile = await axios.get(
-          `${process.env.REACT_APP_BACKEND}/api/v1/profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${profileData?.token}`,
-            },
-            withCredentials: true,
-          }
-        );
-
-        if (getProfile?.data?.status === "success") {
-          dispatch(updateLoginData(getProfile?.data?.data));
-        } else if (getProfile?.status === 401) {
-          dispatch(updateLoginData({}));
-          window.location.href = "/login";
-        } else {
-          toast.error("Failed to load your profile.");
-        }
-      } catch (error) {
-        console.log(error);
-        if (error?.response?.status === 401) {
-          window.location.href = "/login";
-          dispatch(updateLoginData({}));
-        }
-      }
+      await getUserProfile(profileData, dispatch, updateLoginData);
     })();
   }, []);
 

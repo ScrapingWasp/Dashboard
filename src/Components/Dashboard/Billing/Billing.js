@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { updateLoginData } from "../../../Redux/Reducers/SignupReducer";
 import { Button, Progress, Popover, Skeleton, List, Tag } from "antd";
 import {
   BASIC_RADIUS,
@@ -23,13 +24,18 @@ import {
   MdClose,
 } from "react-icons/md";
 import classes from "./Billing.module.css";
-import { capitalize, getPercentageUsed } from "../../Utility/Utils";
+import {
+  capitalize,
+  getPercentageUsed,
+  getUserProfile,
+} from "../../Utility/Utils";
 import AddPaymentMethod from "../AddPaymentMethod/AddPaymentMethod";
 import ModalWrapper from "../../Utility/Modal/Modal";
 import axios from "axios";
 import Loader from "../../Utility/Loader/Loader";
 import toast from "react-hot-toast";
 import CardsIcon from "../../Utility/CardsIcon/CardsIcon";
+import { HighlightWord } from "../../Utility/HighlightWord";
 
 const checkFeature = () => {
   return <MdCheck style={{ color: GREEN, fontSize: "2em" }} />;
@@ -124,6 +130,8 @@ const features = [
 
 const Billing = () => {
   const profileData = useSelector((state) => state?.signup?.loginData);
+  const dispatch = useDispatch();
+
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
   const [isLoadingBeforePaymentMethod, setIsLoadingBeforePaymentMethod] =
     useState(false);
@@ -133,6 +141,9 @@ const Billing = () => {
   const [isLoadingRemovingPaymentMethod, setIsLoadingRemovingPaymentMethod] =
     useState(false);
   const [indexCardRemoving, setIndexCardRemoving] = useState(null);
+  const [isLoadingCancellingSubscription, setIsLoadingCancellingSubscription] =
+    useState(false);
+  const [showCancelSubscription, setShowCancelSubscription] = useState(false);
 
   const [currentPlan, setCurrentPlan] = useState(null);
 
@@ -267,6 +278,42 @@ const Billing = () => {
     }
   };
 
+  const handleCancelSubscription = async () => {
+    if (isLoadingCancellingSubscription) return;
+
+    setIsLoadingCancellingSubscription(true);
+    try {
+      const cancel = await axios.post(
+        `${process.env.REACT_APP_BACKEND}/api/v1/cancelSubscription`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${profileData?.token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (cancel?.data?.status === "success") {
+        toast.success("Subscription cancelled successfully");
+        await getUserProfile(profileData, dispatch, updateLoginData);
+      } else {
+        toast.error(cancel?.data?.message, { duration: 4000 });
+      }
+      setIsLoadingCancellingSubscription(false);
+      setShowCancelSubscription(false);
+    } catch (error) {
+      console.error(error);
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+      } else {
+        toast.error("Unable to cancel subscription", { duration: 4000 });
+      }
+      setIsLoadingCancellingSubscription(false);
+      setShowCancelSubscription(false);
+    }
+  };
+
   return (
     <div
       style={{
@@ -275,6 +322,80 @@ const Billing = () => {
         paddingRight: 35,
         overflowY: "auto",
       }}>
+      {/* Cancel subscription */}
+      <ModalWrapper
+        child={
+          <div style={{ width: 450, padding: 25, paddingTop: 20 }}>
+            <div
+              style={{
+                fontWeight: "bold",
+                fontSize: "1.3em",
+                marginBottom: 35,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}>
+              <span>Cancel Subscription</span>
+              {!isLoadingCancellingSubscription && (
+                <MdClose
+                  onClick={() => setShowCancelSubscription(false)}
+                  style={{ fontSize: "1.3em" }}
+                  className={classes.closeAddPaymentMethod}
+                />
+              )}
+            </div>
+            <div style={{ lineHeight: 1.5 }}>
+              We understand that circumstances change. If you decide to cancel
+              your subscription, please know that{" "}
+              {HighlightWord(`you're always welcome back`)}. Are you sure you'd
+              like to proceed with the cancellation?
+            </div>
+            <div
+              style={{
+                marginTop: 65,
+                display: "flex",
+                alignItems: "center",
+              }}>
+              <Button
+                onClick={handleCancelSubscription}
+                style={{
+                  height: 50,
+                  fontWeight: "bold",
+                  flex: 1,
+                  fontSize: "0.9em",
+                  backgroundColor: CORAL_RED,
+                  borderColor: CORAL_RED,
+                  color: "white",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                {isLoadingCancellingSubscription ? (
+                  <Loader size={30} strokeWidth={3} color={"white"} />
+                ) : (
+                  "Yes, cancel my subscription"
+                )}
+              </Button>
+              <div style={{ width: 15 }}></div>
+              {!isLoadingCancellingSubscription && (
+                <Button
+                  onClick={() => setShowCancelSubscription(false)}
+                  style={{
+                    height: 50,
+                    fontWeight: "bold",
+                    flex: 1,
+                    fontSize: "1.1em",
+                  }}>
+                  Abort, Stay!
+                </Button>
+              )}
+            </div>
+          </div>
+        }
+        show={showCancelSubscription}
+        setShow={setShowCancelSubscription}
+      />
+      {/* Add payment method */}
       <ModalWrapper
         child={
           <div style={{ width: 450, padding: 25, paddingTop: 20 }}>
@@ -592,7 +713,15 @@ const Billing = () => {
           </div>
           {/* Cancel sunscription */}
           <div style={{ padding: 15, marginBottom: 25 }}>
-            <Button>Cancel subscription</Button>
+            {isLoadingCancellingSubscription ? (
+              <Loader size={30} strokeWidth={3} color={CORAL_RED} />
+            ) : (
+              <Button
+                onClick={() => setShowCancelSubscription(true)}
+                type="default">
+                Cancel subscription
+              </Button>
+            )}
           </div>
         </div>
       </div>

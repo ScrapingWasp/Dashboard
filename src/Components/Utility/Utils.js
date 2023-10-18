@@ -1,3 +1,6 @@
+import axios from "axios";
+import toast from "react-hot-toast";
+
 export const calculateDiffPercentage = (obj1, obj2) => {
   let diffPercentages = {};
 
@@ -84,5 +87,37 @@ export const capitalize = (str, everyWord = false) => {
       .join(" ");
   } else {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+};
+
+export const getUserProfile = async (
+  profileData,
+  dispatch,
+  updateLoginData
+) => {
+  try {
+    const getProfile = await axios.get(
+      `${process.env.REACT_APP_BACKEND}/api/v1/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${profileData?.token}`,
+        },
+        withCredentials: true,
+      }
+    );
+    if (getProfile?.data?.status === "success") {
+      dispatch(updateLoginData(getProfile?.data?.data));
+    } else if (getProfile?.status === 401) {
+      dispatch(updateLoginData({}));
+      window.location.href = "/login";
+    } else {
+      toast.error("Failed to load your profile.");
+    }
+  } catch (error) {
+    console.log(error);
+    if (error?.response?.status === 401) {
+      window.location.href = "/login";
+      dispatch(updateLoginData({}));
+    }
   }
 };
