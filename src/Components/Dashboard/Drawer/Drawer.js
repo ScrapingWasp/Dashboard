@@ -25,7 +25,7 @@ import {
 import { Button, Progress, Dropdown } from "antd";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { getPercentageUsed } from "../../Utility/Utils";
+import { capitalize, getPercentageUsed } from "../../Utility/Utils";
 
 const optionsIconStyle = { fontSize: "1.1em", marginRight: 15, color: GRAY_2 };
 
@@ -132,7 +132,7 @@ const Drawer = () => {
         />
         <div>
           <div style={{ fontWeight: 600, fontSize: "0.9em", color: GRAY_2 }}>
-            {profileData?.firstName}
+            {capitalize(profileData?.firstName)}
           </div>
           <div style={{ fontSize: "0.9em", color: PRIMARY }}>
             Personal account

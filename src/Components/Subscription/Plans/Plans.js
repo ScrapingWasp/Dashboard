@@ -142,7 +142,7 @@ const Plans = () => {
       const subscription = await axios.post(
         `${process.env.REACT_APP_BACKEND}/subscription`,
         {
-          customerId: "cus_OpB8EI4Ye59QsJ",
+          customerId: "cus_OpyQc0UlkYpBDZ",
           priceId: plan?.priceInfo?.id,
         }
       );

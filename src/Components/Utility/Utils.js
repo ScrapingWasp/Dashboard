@@ -64,3 +64,25 @@ export const getPercentageUsed = (profileData) => {
     notUsed: roundToTwo((credits * 100) / (credits + usedCredits)),
   };
 };
+
+/**
+ * Capitalize the given string.
+ *
+ * @param {string} str - The string to capitalize.
+ * @param {boolean} everyWord - If true, capitalize every word, otherwise only the first letter of the entire string.
+ * @returns {string} - The capitalized string.
+ */
+export const capitalize = (str, everyWord = false) => {
+  if (!str || typeof str !== "string") {
+    return "";
+  }
+
+  if (everyWord) {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  } else {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+};

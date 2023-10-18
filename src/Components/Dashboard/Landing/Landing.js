@@ -21,7 +21,7 @@ import {
   MdCode,
   MdArrowForward,
 } from "react-icons/md";
-import { getPercentageUsed } from "../../Utility/Utils";
+import { capitalize, getPercentageUsed } from "../../Utility/Utils";
 import axios from "axios";
 import Loader from "../../Utility/Loader/Loader";
 
@@ -121,7 +121,11 @@ const Landing = () => {
                   display: "flex",
                   alignItems: "center",
                 }}>
-                <div>{`${profileData?.firstName} ${profileData?.lastName}`}</div>
+                <div>
+                  {capitalize(
+                    `${profileData?.firstName} ${profileData?.lastName}`
+                  )}
+                </div>
                 <div
                   style={{
                     border: `1px solid ${GREEN}`,

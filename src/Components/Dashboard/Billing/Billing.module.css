@@ -22,3 +22,8 @@
   font-weight: bold;
   font-size: 0.9em;
 }
+
+.closeAddPaymentMethod:hover {
+  cursor: pointer;
+  color: #c1121f;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, Progress, Popover } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { Button, Progress, Popover, Skeleton, List, Tag } from "antd";
 import {
   BASIC_RADIUS,
   CORAL_RED,
@@ -19,8 +20,16 @@ import {
   MdEmail,
   MdOutlineOpenInNew,
   MdAdd,
+  MdClose,
 } from "react-icons/md";
 import classes from "./Billing.module.css";
+import { capitalize, getPercentageUsed } from "../../Utility/Utils";
+import AddPaymentMethod from "../AddPaymentMethod/AddPaymentMethod";
+import ModalWrapper from "../../Utility/Modal/Modal";
+import axios from "axios";
+import Loader from "../../Utility/Loader/Loader";
+import toast from "react-hot-toast";
+import CardsIcon from "../../Utility/CardsIcon/CardsIcon";
 
 const checkFeature = () => {
   return <MdCheck style={{ color: GREEN, fontSize: "2em" }} />;
@@ -63,6 +72,7 @@ const emailUs = () => {
 const features = [
   {
     name: "API credits",
+    free: "1500",
     freelance: "250,000",
     startup: "1,500,0000",
     business: "4,000,000",
@@ -71,6 +81,7 @@ const features = [
   },
   {
     name: "Concurrent requests",
+    free: 5,
     freelance: 10,
     startup: 50,
     business: 100,
@@ -78,6 +89,7 @@ const features = [
   },
   {
     name: "General web scraping",
+    free: checkFeature(),
     freelance: checkFeature(),
     startup: checkFeature(),
     business: checkFeature(),
@@ -86,6 +98,7 @@ const features = [
   },
   {
     name: "Data extraction",
+    free: checkFeature(),
     freelance: checkFeature(),
     startup: checkFeature(),
     business: checkFeature(),
@@ -93,6 +106,7 @@ const features = [
   },
   {
     name: "Screenshots",
+    free: checkFeature(),
     freelance: checkFeature(),
     startup: checkFeature(),
     business: checkFeature(),
@@ -100,6 +114,7 @@ const features = [
   },
   {
     name: "Priority email support",
+    free: checkFeature(),
     freelance: emailUs(),
     startup: emailUs(),
     business: emailUs(),
@@ -108,11 +123,149 @@ const features = [
 ];
 
 const Billing = () => {
-  const [currentPlan, setCurrentPlan] = useState("freelance");
+  const profileData = useSelector((state) => state?.signup?.loginData);
+  const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
+  const [isLoadingBeforePaymentMethod, setIsLoadingBeforePaymentMethod] =
+    useState(false);
+  const [paymentMethodAddToken, setPaymentMethodAddToken] = useState(null);
+  const [isLoadingPaymentMethods, setIsLoadingPaymentMethods] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+  const [isLoadingRemovingPaymentMethod, setIsLoadingRemovingPaymentMethod] =
+    useState(false);
+  const [indexCardRemoving, setIndexCardRemoving] = useState(null);
+
+  const [currentPlan, setCurrentPlan] = useState(null);
 
   useEffect(() => {
     document.title = "Billing";
+
+    if (profileData?.balance?.subscription?.plan) {
+      setCurrentPlan(
+        profileData?.balance?.subscription?.plan?.toLowerCase().trim()
+      );
+    } else if (profileData?.balance?.credits) {
+      setCurrentPlan("free");
+    }
+
+    (async () => {
+      await handleGetPaymentMethods();
+    })();
   }, []);
+
+  useEffect(() => {}, [profileData]);
+
+  const doesHaveSubscription = () =>
+    profileData?.balance?.subscription?.expiration;
+
+  const handleGetPaymentMethods = async () => {
+    if (isLoadingPaymentMethods) return;
+
+    try {
+      setIsLoadingPaymentMethods(true);
+
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND}/api/v1/payment_methods`,
+        {
+          headers: {
+            Authorization: `Bearer ${profileData?.token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response?.data?.status === "success" && response?.data?.data) {
+        setPaymentMethods(response?.data?.data);
+      } else {
+        toast.error("Unable to get your Payment methods");
+        setPaymentMethods([]);
+      }
+
+      setIsLoadingPaymentMethods(false);
+    } catch (error) {
+      console.error(error);
+      setIsLoadingPaymentMethods(false);
+      setPaymentMethods([]);
+      toast.error("Unable to get your Payment methods");
+    }
+  };
+
+  const handleGetTokenForAddingPaymentMethod = async () => {
+    try {
+      if (isLoadingBeforePaymentMethod) return;
+
+      setIsLoadingBeforePaymentMethod(true);
+
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND}/api/v1/addcard_intent`,
+        {
+          headers: {
+            Authorization: `Bearer ${profileData?.token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response?.data?.status === "success" && response?.data?.data) {
+        setPaymentMethodAddToken(response?.data?.data);
+        setPaymentMethodAddToken(response?.data?.data);
+        setShowAddPaymentMethod(true);
+      } else {
+        toast.error("Unable to add Payment methods");
+        setPaymentMethodAddToken(null);
+      }
+
+      setIsLoadingBeforePaymentMethod(false);
+    } catch (error) {
+      console.error(error);
+      setIsLoadingBeforePaymentMethod(false);
+      setPaymentMethodAddToken(null);
+      toast.error("Unable to add Payment methods");
+    }
+  };
+
+  const handleSuccessPaymentMethodAddition = async () => {
+    setShowAddPaymentMethod(false);
+    setPaymentMethodAddToken(null);
+    await handleGetPaymentMethods();
+  };
+
+  const handleRemovePaymentMethod = async (paymentMethodId) => {
+    try {
+      if (isLoadingRemovingPaymentMethod) return;
+
+      setIndexCardRemoving(paymentMethodId);
+
+      setIsLoadingRemovingPaymentMethod(true);
+
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND}/api/v1/payment_methods/${paymentMethodId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${profileData?.token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response?.data?.status === "success") {
+        toast.success("Payment method removed successfully");
+        await handleGetPaymentMethods();
+      } else {
+        toast.error(response?.data?.message, { duration: 4000 });
+      }
+
+      setIsLoadingRemovingPaymentMethod(false);
+    } catch (error) {
+      console.error(error);
+      setIsLoadingRemovingPaymentMethod(false);
+
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+      } else {
+        toast.error("Unable to remove Payment method");
+      }
+    }
+  };
 
   return (
     <div
@@ -122,6 +275,34 @@ const Billing = () => {
         paddingRight: 35,
         overflowY: "auto",
       }}>
+      <ModalWrapper
+        child={
+          <div style={{ width: 450, padding: 25, paddingTop: 20 }}>
+            <div
+              style={{
+                fontWeight: "bold",
+                fontSize: "1.3em",
+                marginBottom: 35,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}>
+              <span>Add new payment method</span>
+              <MdClose
+                onClick={() => setShowAddPaymentMethod(false)}
+                style={{ fontSize: "1.3em" }}
+                className={classes.closeAddPaymentMethod}
+              />
+            </div>
+            <AddPaymentMethod
+              callback={handleSuccessPaymentMethodAddition}
+              clientSecret={paymentMethodAddToken}
+            />
+          </div>
+        }
+        show={showAddPaymentMethod}
+        setShow={setShowAddPaymentMethod}
+      />
       <div
         style={{
           fontWeight: "bolder",
@@ -152,13 +333,15 @@ const Billing = () => {
               fontSize: "0.7em",
               color: GRAY_2,
             }}>
-            Billing period: Oct 8, 2023 - Nov 2, 2023
+            {doesHaveSubscription()
+              ? "Billing period: From? - To?"
+              : "No subscriptions."}
           </div>
         </div>
         <div style={{ textAlign: "left" }}>
           <div>
             <Progress
-              percent={88}
+              percent={getPercentageUsed(profileData).notUsed}
               size={["100%", 30]}
               strokeColor={GREEN}
               showInfo={false}
@@ -175,7 +358,10 @@ const Billing = () => {
                 }}>
                 <MdCircle color={GENERIC_GRAY} style={{ marginRight: 10 }} />
                 <div style={{ fontSize: "0.9em" }}>
-                  Used - <strong>100 credits</strong>
+                  Used -{" "}
+                  <strong>
+                    {profileData?.balance?.usedCredits ?? 0} credits
+                  </strong>
                 </div>
               </div>
               {/* Remaining */}
@@ -187,7 +373,8 @@ const Billing = () => {
                 }}>
                 <MdCircle color={GREEN} style={{ marginRight: 10 }} />
                 <div style={{ fontSize: "0.9em" }}>
-                  Remaining - <strong>4000 credits</strong>
+                  Remaining -{" "}
+                  <strong>{profileData?.balance?.credits ?? 0} credits</strong>
                 </div>
               </div>
             </div>
@@ -221,52 +408,60 @@ const Billing = () => {
           </Button>
         </div>
         {/* Plan */}
-        <div
-          style={{
-            border: `1px solid ${GENERIC_GRAY}`,
-            textAlign: "left",
-            borderRadius: BASIC_RADIUS,
-          }}>
+        {!currentPlan ? (
+          <div>
+            <Skeleton active style={{ width: "100%", height: 200 }} />
+          </div>
+        ) : (
           <div
             style={{
-              borderBottom: `1px solid ${GENERIC_GRAY}`,
-              display: "flex",
-              alignItems: "center",
-              padding: 15,
-              marginBottom: 10,
+              border: `1px solid ${GENERIC_GRAY}`,
+              textAlign: "left",
+              borderRadius: BASIC_RADIUS,
             }}>
-            <MdOutlineCircle style={{ color: SECONDARY, marginRight: 10 }} />
-            <div style={{ fontWeight: "bolder" }}>Freelance plan</div>
-          </div>
-          <div className={classes.subscriptionFeaturesContainer}>
-            {features.map((feature, index) => {
-              const value = feature[currentPlan];
+            <div
+              style={{
+                borderBottom: `1px solid ${GENERIC_GRAY}`,
+                display: "flex",
+                alignItems: "center",
+                padding: 15,
+                marginBottom: 10,
+              }}>
+              <MdOutlineCircle style={{ color: SECONDARY, marginRight: 10 }} />
+              <div style={{ fontWeight: "bolder" }}>
+                {capitalize(currentPlan).trim()} plan
+              </div>
+            </div>
+            <div className={classes.subscriptionFeaturesContainer}>
+              {features.map((feature, index) => {
+                const value = feature[currentPlan];
 
-              return (
-                <div>
+                return (
                   <div>
-                    {feature.name}{" "}
-                    <Popover
-                      trigger={"click"}
-                      content={feature.description}
-                      title={feature.name}
-                      overlayStyle={{ width: "200px" }}>
-                      <MdHelpOutline
-                        style={{
-                          position: "relative",
-                          top: 1,
-                          marginLeft: 5,
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Popover>
+                    <div>
+                      {feature.name}{" "}
+                      <Popover
+                        trigger={"click"}
+                        content={feature.description}
+                        title={feature.name}
+                        overlayStyle={{ width: "200px" }}>
+                        <MdHelpOutline
+                          style={{
+                            position: "relative",
+                            top: 1,
+                            marginLeft: 5,
+                            cursor: "pointer",
+                          }}
+                        />
+                      </Popover>
+                    </div>
+                    <div>{value}</div>
                   </div>
-                  <div>{value}</div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Payment methods */}
         <div
@@ -286,6 +481,7 @@ const Billing = () => {
             }}>
             <div style={{ fontWeight: "bold" }}>Payment methods</div>
             <div
+              onClick={() => handleGetTokenForAddingPaymentMethod()}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -293,13 +489,83 @@ const Billing = () => {
                 fontWeight: 600,
                 cursor: "pointer",
               }}>
-              <MdAdd /> Add new
+              {isLoadingBeforePaymentMethod ? (
+                <Loader size={23} strokeWidth={3} />
+              ) : (
+                <>
+                  <MdAdd /> Add new
+                </>
+              )}
             </div>
           </div>
           {/* Cards */}
           <div style={{ padding: 15 }}>
             <div style={{ marginBottom: 25, fontSize: "0.9em", color: GRAY_1 }}>
-              No payment method found
+              {paymentMethods?.length <= 0 ? (
+                "No payment method found"
+              ) : (
+                <List
+                  dataSource={paymentMethods}
+                  style={{
+                    paddingTop: 0,
+                  }}
+                  renderItem={(item) => (
+                    <List.Item
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}>
+                        <div style={{ fontWeight: "bold" }}>
+                          <CardsIcon
+                            style={{ width: 35, height: 35 }}
+                            cardName={item?.card?.brand}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            marginLeft: 15,
+                            position: "relative",
+                            bottom: 2,
+                            fontWeight: 500,
+                          }}>
+                          •••• •••• •••• {item?.card?.last4}
+                        </div>
+                        {item?.default && (
+                          <Tag
+                            style={{
+                              marginLeft: 20,
+                              position: "relative",
+                              bottom: 3,
+                            }}>
+                            Default
+                          </Tag>
+                        )}
+                      </div>
+                      {isLoadingRemovingPaymentMethod &&
+                      indexCardRemoving === item?.id ? (
+                        <Loader size={23} strokeWidth={3} />
+                      ) : (
+                        paymentMethods.length > 1 && (
+                          <MdClose
+                            onClick={() =>
+                              isLoadingRemovingPaymentMethod
+                                ? {}
+                                : handleRemovePaymentMethod(item?.id)
+                            }
+                            style={{ fontSize: "1.5em" }}
+                            className={classes.closeAddPaymentMethod}
+                          />
+                        )
+                      )}
+                    </List.Item>
+                  )}
+                />
+              )}
             </div>
           </div>
         </div>
