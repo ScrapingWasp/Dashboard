@@ -13,6 +13,7 @@ import {
   SECONDARY,
 } from "../../Utility/Colors";
 import { Divider, Steps, Popover } from "antd";
+import classes from "./Plans.module.css";
 
 const genericStepsIconStyle = {
   color: MEAN_GRAY,
@@ -124,11 +125,13 @@ const Header = ({ step }) => {
         </div>
         {/* Close */}
         <div
+          className={classes.closeAddPaymentMethod}
           style={{
             flex: 1,
             display: "flex",
             justifyContent: "flex-end",
-          }}>
+          }}
+          onClick={() => (window.location.href = "/dashboard")}>
           <MdOutlineClose
             style={{
               fontSize: "1.5em",

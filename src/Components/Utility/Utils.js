@@ -1,4 +1,5 @@
 import axios from "axios";
+import dayjs from "dayjs";
 import toast from "react-hot-toast";
 
 export const calculateDiffPercentage = (obj1, obj2) => {
@@ -120,4 +121,20 @@ export const getUserProfile = async (
       dispatch(updateLoginData({}));
     }
   }
+};
+
+export const formatBillingDetails = (obj) => {
+  // Parse dates using dayjs
+  const startDate = dayjs(obj.createAt);
+  const endDate = dayjs(obj.expirationDate);
+
+  // Format dates using dayjs
+  const formattedStartDate = startDate.format("MMM D, YYYY");
+  const formattedEndDate = endDate.format("MMM D, YYYY");
+
+  // Return formatted details
+  return {
+    billing_period: `From ${formattedStartDate} - To ${formattedEndDate}`,
+    reset_date: `Credits resets on ${formattedEndDate}`,
+  };
 };

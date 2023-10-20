@@ -21,7 +21,11 @@ import {
   MdCode,
   MdArrowForward,
 } from "react-icons/md";
-import { capitalize, getPercentageUsed } from "../../Utility/Utils";
+import {
+  capitalize,
+  formatBillingDetails,
+  getPercentageUsed,
+} from "../../Utility/Utils";
 import axios from "axios";
 import Loader from "../../Utility/Loader/Loader";
 
@@ -138,7 +142,9 @@ const Landing = () => {
                     borderRadius: BASIC_RADIUS + 50,
                     marginLeft: 20,
                   }}>
-                  {profileData?.balance?.subscription?.plan ?? "Free"}
+                  {capitalize(
+                    profileData?.balance?.subscription?.plan ?? "Free"
+                  )}
                 </div>
               </div>
               <div
@@ -237,8 +243,9 @@ const Landing = () => {
               fontSize: "0.7em",
               color: GRAY_2,
             }}>
-            {profileData?.balance?.subscription?.expiration
-              ? "Billing period: From? - To?"
+            {profileData?.balance?.subscription?.expirationDate
+              ? formatBillingDetails(profileData?.balance?.subscription)
+                  .billing_period
               : "No subscriptions."}
           </div>
         </div>

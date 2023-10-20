@@ -407,8 +407,6 @@ const Plans = () => {
     );
   };
 
-  console.log(profileData?.balance?.subscription?.plan);
-
   return (
     <div
       style={{
@@ -719,6 +717,12 @@ const Plans = () => {
                       display: "flex",
                       alignItems: "center",
                       cursor: "pointer",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (selectedPaymentMethod?.id === item?.id)
+                        return setSelectedPaymentMethod(null);
+                      setSelectedPaymentMethod(item);
                     }}>
                     <div
                       style={{
@@ -727,7 +731,8 @@ const Plans = () => {
                       }}>
                       <Checkbox
                         checked={selectedPaymentMethod?.id === item?.id}
-                        onChange={() => {
+                        onChange={(e) => {
+                          e.stopPropagation();
                           if (selectedPaymentMethod?.id === item?.id)
                             return setSelectedPaymentMethod(null);
                           setSelectedPaymentMethod(item);

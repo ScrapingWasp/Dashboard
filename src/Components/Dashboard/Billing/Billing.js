@@ -26,6 +26,7 @@ import {
 import classes from "./Billing.module.css";
 import {
   capitalize,
+  formatBillingDetails,
   getPercentageUsed,
   getUserProfile,
 } from "../../Utility/Utils";
@@ -166,7 +167,7 @@ const Billing = () => {
   useEffect(() => {}, [profileData]);
 
   const doesHaveSubscription = () =>
-    profileData?.balance?.subscription?.expiration;
+    profileData?.balance?.subscription?.expirationDate;
 
   const handleGetPaymentMethods = async () => {
     if (isLoadingPaymentMethods) return;
@@ -455,7 +456,8 @@ const Billing = () => {
               color: GRAY_2,
             }}>
             {doesHaveSubscription()
-              ? "Billing period: From? - To?"
+              ? formatBillingDetails(profileData?.balance?.subscription)
+                  .billing_period
               : "No subscriptions."}
           </div>
         </div>

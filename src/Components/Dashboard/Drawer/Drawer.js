@@ -27,6 +27,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import {
   capitalize,
+  formatBillingDetails,
   getPercentageUsed,
   getUserProfile,
 } from "../../Utility/Utils";
@@ -142,7 +143,7 @@ const Drawer = () => {
                 padding: 3,
                 borderRadius: BASIC_RADIUS,
               }}>
-              {profileData?.balance?.subscription?.plan ?? "Free"}
+              {capitalize(profileData?.balance?.subscription?.plan ?? "Free")}
             </div>
           </div>
         ),
@@ -339,8 +340,9 @@ const Drawer = () => {
                 fontSize: "0.8em",
                 color: GRAY_2,
               }}>
-              {profileData?.balance?.subscription?.expiration
-                ? `Credits resets on ${profileData?.balance?.subscription?.expiration}`
+              {profileData?.balance?.subscription?.expirationDate
+                ? formatBillingDetails(profileData?.balance?.subscription)
+                    .reset_date
                 : ""}
             </div>
           </div>
