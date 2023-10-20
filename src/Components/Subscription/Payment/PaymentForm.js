@@ -95,7 +95,7 @@ const PaymentForm = ({
       style={{
         width: 470,
         margin: "auto",
-        marginTop: 60,
+        marginTop: 30,
       }}>
       <form id="payment-form" onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" />

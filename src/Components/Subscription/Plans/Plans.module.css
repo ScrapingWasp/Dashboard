@@ -14,3 +14,13 @@
 .noTR td {
   border: none;
 }
+
+.clickPaymentScenario:hover {
+  cursor: pointer;
+  color: #00509d;
+}
+
+.closeAddPaymentMethod:hover {
+  cursor: pointer;
+  color: #c1121f;
+}

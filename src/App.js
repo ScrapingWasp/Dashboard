@@ -56,7 +56,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      <Toaster />
+      <Toaster containerStyle={{ zIndex: 90000000000 }} />
       <RouterProvider router={router} />
     </div>
   );

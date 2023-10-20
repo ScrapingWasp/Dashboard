@@ -518,6 +518,7 @@ const Billing = () => {
           }}>
           <div>Current subscription</div>
           <Button
+            onClick={() => (window.location.href = "/plans")}
             style={{
               fontWeight: "bold",
               height: 38,
