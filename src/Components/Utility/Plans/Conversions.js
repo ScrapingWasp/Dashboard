@@ -25,14 +25,14 @@ export const getPlansFeaturesList = () => {
     {
       name: "API credits",
       freelance: "250,000",
-      startup: "1,500,0000",
+      startup: "1,500,000",
       business: "4,000,000",
     },
     {
       name: "Concurrent requests",
       freelance: 10,
-      startup: 50,
-      business: 100,
+      startup: 150,
+      business: 200,
     },
     {
       name: "General web scraping",
