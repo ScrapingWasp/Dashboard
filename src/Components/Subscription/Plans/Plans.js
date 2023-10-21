@@ -434,30 +434,56 @@ const Plans = () => {
           <table className={classes.tablePricing}>
             <tbody>
               <tr className={classes.noTR}>
-                {[1, 2, 3, 4].map((_, index) => {
-                  if (
-                    profileData?.balance?.subscription?.plan === "FREELANCE" &&
-                    index === 1
-                  ) {
-                    return <td>{renderCurrentSubscriptionFlag()}</td>;
-                  } else if (
-                    profileData?.balance?.subscription?.plan === "STARTUP" &&
-                    index === 2
-                  ) {
-                    return <td>{renderCurrentSubscriptionFlag()}</td>;
-                  } else if (
-                    profileData?.balance?.subscription?.plan === "BUSINESS" &&
-                    index === 3
-                  ) {
-                    return <td>{renderCurrentSubscriptionFlag()}</td>;
-                  } else {
-                    return <td></td>;
-                  }
-                })}
-                {/* <td></td>
-                <td></td>
-                <td></td>
-                <td></td> */}
+                {profileData?.balance?.subscription?.plan ? (
+                  [1, 2, 3, 4].map((_, index) => {
+                    if (
+                      profileData?.balance?.subscription?.plan ===
+                        "FREELANCE" &&
+                      index === 1
+                    ) {
+                      return <td>{renderCurrentSubscriptionFlag()}</td>;
+                    } else if (
+                      profileData?.balance?.subscription?.plan === "STARTUP" &&
+                      index === 2
+                    ) {
+                      return <td>{renderCurrentSubscriptionFlag()}</td>;
+                    } else if (
+                      profileData?.balance?.subscription?.plan === "BUSINESS" &&
+                      index === 3
+                    ) {
+                      return <td>{renderCurrentSubscriptionFlag()}</td>;
+                    } else {
+                      return <td></td>;
+                    }
+                  })
+                ) : (
+                  <>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <div
+                        style={{
+                          color: "black",
+                          fontWeight: 600,
+                          backgroundColor: SECONDARY,
+                          borderTopLeftRadius: BASIC_RADIUS,
+                          borderTopRightRadius: BASIC_RADIUS,
+                          height: "80%",
+                          width: "80%",
+                          margin: "auto",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          position: "relative",
+                          top: 7,
+                          fontSize: "0.9em",
+                        }}>
+                        Recommended
+                      </div>
+                    </td>
+                    <td></td>
+                  </>
+                )}
               </tr>
               <tr>
                 <td

@@ -30,9 +30,9 @@ export const getPlansFeaturesList = () => {
     },
     {
       name: "Concurrent requests",
-      freelance: 10,
+      freelance: 15,
       startup: 150,
-      business: 200,
+      business: 250,
     },
     {
       name: "General web scraping",

@@ -720,7 +720,10 @@ const Billing = () => {
               <Loader size={30} strokeWidth={3} color={CORAL_RED} />
             ) : (
               <Button
-                onClick={() => setShowCancelSubscription(true)}
+                disabled={!doesHaveSubscription()}
+                onClick={() =>
+                  !doesHaveSubscription() ? {} : setShowCancelSubscription(true)
+                }
                 type="default">
                 Cancel subscription
               </Button>
