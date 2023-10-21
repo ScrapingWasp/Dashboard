@@ -81,7 +81,7 @@ const features = [
     name: "API credits",
     free: "1500",
     freelance: "250,000",
-    startup: "1,500,0000",
+    startup: "1,500,000",
     business: "4,000,000",
     description:
       "Your API credits are only valid for one month, left overs are not kept on the next month.",
@@ -89,9 +89,9 @@ const features = [
   {
     name: "Concurrent requests",
     free: 5,
-    freelance: 10,
-    startup: 50,
-    business: 100,
+    freelance: 15,
+    startup: 150,
+    business: 250,
     description: "The number of requests that can be sent at the same time.",
   },
   {
