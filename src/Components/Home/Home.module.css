@@ -1,0 +1,10 @@
+.fadeBorder {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(153, 250, 153, 1) -10%,
+    rgba(255, 255, 255, 0) 30%
+  );
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+}

@@ -7,6 +7,7 @@ import CodeShow from "../CodeShow/CodeShow";
 import { HighlightWord } from "../Utility/HighlightWord";
 import Pricing from "../Pricing/Pricing";
 import Promotion from "../Utility/Plans/Promotion";
+import classes from "./Home.module.css";
 
 const Home = () => {
   useEffect(() => {
@@ -30,6 +31,23 @@ const Home = () => {
           flexDirection: "column",
           alignItems: "center",
         }}>
+        <div
+          className={classes.fadeBorder}
+          style={{
+            position: "absolute",
+            zIndex: 10000000000,
+            left: "-20%",
+            top: "10%",
+          }}></div>
+
+        <div
+          className={classes.fadeBorder}
+          style={{
+            position: "absolute",
+            zIndex: 10000000000,
+            right: "-20%",
+            top: "-10%",
+          }}></div>
         <div style={{ marginTop: "8.5em" }}>
           <Promotion />
         </div>
@@ -39,7 +57,7 @@ const Home = () => {
             fontSize: "4em",
             marginTop: "0.5em",
           }}>
-          Develop robust data pipelines. Quickly.
+          Develop robust web scrapers. Quickly.
         </div>
         <div
           style={{
@@ -48,7 +66,7 @@ const Home = () => {
             marginTop: "2em",
             lineHeight: 1.5,
           }}>
-          ScrapingWasp allows developers to build reliable data pipelines in
+          ScrapingWasp allows developers to build reliable web scrapers in
           minutes and at a {HighlightWord("low cost")}.
         </div>
 

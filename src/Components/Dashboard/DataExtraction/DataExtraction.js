@@ -1,10 +1,45 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Table, Tag } from "antd";
 import { CORAL_RED, GRAY_2, GREEN, SECONDARY } from "../../Utility/Colors";
 import DADescription from "./DADescription";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const DataExtraction = () => {
+  const dispatch = useDispatch();
+  const profileData = useSelector((state) => state?.signup?.loginData);
   const [showDescription, setShowDescription] = useState(false);
+  const [scrapes, setScrapes] = useState([]);
+
+  useEffect(() => {
+    if (profileData?.token) {
+      (async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACKEND}/api/v1/profile/scraping`,
+            {
+              headers: {
+                Authorization: `Bearer ${profileData?.token}`,
+              },
+            }
+          );
+
+          if (response?.data?.status === "success") {
+            setScrapes(response?.data?.data?.scrapes);
+          } else {
+            setScrapes([]);
+            toast.error("Unable to retrieve your scraping jobs", {
+              duration: 4000,
+            });
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error(error?.response?.data?.message);
+        }
+      })();
+    }
+  }, [profileData]);
 
   const getColumns = () => {
     const columns = [
@@ -52,7 +87,7 @@ const DataExtraction = () => {
       },
       {
         title: "Created at",
-        dataIndex: "created_at",
+        dataIndex: "createdAt",
         key: "created_at",
       },
     ];
@@ -124,11 +159,7 @@ const DataExtraction = () => {
       {showDescription ? (
         <DADescription setShowDescription={setShowDescription} />
       ) : (
-        <Table
-          dataSource={getDataToShow()}
-          columns={getColumns()}
-          onRow={onRowClick}
-        />
+        <Table dataSource={scrapes} columns={getColumns()} onRow={onRowClick} />
       )}
     </div>
   );
