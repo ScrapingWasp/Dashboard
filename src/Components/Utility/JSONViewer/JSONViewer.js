@@ -19,6 +19,7 @@ const JSONViewer = ({ value, oldValue }) => {
         fontFamily: 'Consolas, "Courier New", monospace',
         paddingLeft: 20,
         paddingRight: 20,
+        wordWrap: "break-word",
       }}>
       {isExpanded ? (
         oldValue && value ? (

@@ -138,3 +138,15 @@ export const formatBillingDetails = (obj) => {
     reset_date: `Credits resets on ${formattedEndDate}`,
   };
 };
+
+export const formatDateGeneric = (date) => {
+  return dayjs(date).format("MMM D, YYYY hh:mm A");
+};
+
+export const ellipseStringAt = (string, length) => {
+  if (string.length > length) {
+    return string.substring(0, length) + "...";
+  } else {
+    return string;
+  }
+};

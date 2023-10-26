@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs } from "antd";
 import DataExtraction from "../DataExtraction/DataExtraction";
 import Screenshots from "../Screenshots/Screenshots";
 import { GRAY_2 } from "../../Utility/Colors";
 
 const Keeper = () => {
+  const [selectedDataExtracted, setSelectedDataExtracted] = useState(null);
+
   useEffect(() => {
     document.title = "Keeper";
   }, []);
@@ -14,7 +16,12 @@ const Keeper = () => {
       {
         key: "1",
         label: "Data Extraction",
-        children: <DataExtraction />,
+        children: (
+          <DataExtraction
+            setSelectedDataExtracted={setSelectedDataExtracted}
+            selectedDataExtracted={selectedDataExtracted}
+          />
+        ),
       },
       {
         key: "2",

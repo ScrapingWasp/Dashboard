@@ -131,7 +131,7 @@ const JSONTree = ({ json, depth = 0 }) => {
                         fontWeight: 600,
                         fontSize: "0.9em",
                       }}>
-                      {getTypeLabel(value)}
+                      {getTypeLabel(value)} ({isNestedArray ? value.length : 1})
                     </span>
                   )}
                 </strong>
@@ -144,7 +144,10 @@ const JSONTree = ({ json, depth = 0 }) => {
                     <JSONTree json={value} depth={depth + 1} />
                   )
                 ) : (
-                  <span style={{ color: getColorByType(value) }}>
+                  <span
+                    style={{
+                      color: getColorByType(value),
+                    }}>
                     {JSON.stringify(value)}
                   </span>
                 )}
